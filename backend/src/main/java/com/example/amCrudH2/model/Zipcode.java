@@ -23,7 +23,7 @@ public class Zipcode {
     private String city;
     private String state;
     @OneToMany(targetEntity = Customer.class, cascade = CascadeType.ALL)
-    @JoinColumn
+    @JoinColumn(name = "zipcode_id", referencedColumnName = "zipcodeID")
     private List<Customer> customers;
 
 }
