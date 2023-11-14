@@ -18,15 +18,17 @@ public class Customer {
     private String streetAddress;
 
     // we're saying that customer is the many and that zipcode is a fk
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="zipcode_id", referencedColumnName = "zipcodeID",nullable = false)
+    @ManyToOne
+    @JoinColumn(name="zipcode_id", referencedColumnName ="zipcodeID", nullable = false, insertable = true)
     private Zipcode zipcode; // <-- needs to be a foreign key look that up!
+
 
     public Zipcode getZipcode () {
         return this.zipcode;
     }
 
     public void setZipcode(Zipcode zipcode) {
+
         this.zipcode = zipcode;
     }
 
@@ -40,6 +42,10 @@ public class Customer {
 
     public String getStreetAddress() {
         return streetAddress;
+    }
+
+    public Long getTelephoneID() {
+        return telephoneID;
     }
 }
 

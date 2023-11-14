@@ -57,11 +57,9 @@ public class CustomerController {
         }
         Zipcode zipcode = zipcodeOptional.get();
         Customer customer = new Customer();
-        customer.setZipcode(zipcode);
-        customer.setStreetAddress(customerRequest.getStreetAddress());
         customer.setTelephoneID(customerRequest.getTelephoneID());
-        System.out.println(customer);
-        zipcode.addCustomer(customer);
+        customer.setStreetAddress(customerRequest.getStreetAddress());
+        customer.setZipcode(zipcode);
         customerRepo.save(customer);
         return new ResponseEntity<>(customer, HttpStatus.OK);
     }

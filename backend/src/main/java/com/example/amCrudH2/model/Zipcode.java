@@ -3,6 +3,8 @@ package com.example.amCrudH2.model;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.*;
+
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -24,10 +26,10 @@ public class Zipcode {
     private String state;
     @OneToMany(mappedBy = "zipcode", cascade = {CascadeType.ALL})
     // given name then original id
-    private List<Customer> customers;
+    private List<Customer> customers = new ArrayList<>();
 
     public Long getZipcodeID() {
-        return this.zipcodeID;
+        return zipcodeID;
     }
 
     public void addCustomer(Customer customer) {
