@@ -40,7 +40,7 @@ public class ProductController {
     }
 
     @GetMapping("/product/{id}")
-    public ResponseEntity<Product> getproductById(@PathVariable Long id) {
+    public ResponseEntity<Product> getProductById(@PathVariable Long id) {
         Optional<Product> productData = productRepo.findById(id);
 
         if (productData.isPresent()) {
@@ -51,16 +51,16 @@ public class ProductController {
     }
 
     @PostMapping("/product")
-    public ResponseEntity<Product> addproduct(@RequestBody Product product) {
+    public ResponseEntity<Product> addProduct(@RequestBody Product product) {
 
         Product productObj = productRepo.save(product);
 
         return new ResponseEntity<>(productObj, HttpStatus.OK);
     }
 
-    @PostMapping
-    public void updateProductById() {}
-
-    @DeleteMapping
-    public void deleteProductById() {}
+//    @PostMapping
+//    public void updateProductById() {}
+//
+//    @DeleteMapping
+//    public void deleteProductById() {}
 }
