@@ -1,5 +1,6 @@
 package com.example.amCrudH2.controller;
 
+import com.example.amCrudH2.dto.CustomerRequest;
 import com.example.amCrudH2.model.Customer;
 import com.example.amCrudH2.model.Zipcode;
 import com.example.amCrudH2.repo.CustomerRepo;
@@ -9,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.swing.text.html.Option;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -18,6 +20,7 @@ public class CustomerController {
 
     @Autowired
     private CustomerRepo customerRepo;
+    @Autowired
     private ZipcodeRepo zipcodeRepo;
 
     @GetMapping("/customer")
@@ -47,8 +50,19 @@ public class CustomerController {
     }
 
     @PostMapping("/customer")
-    public ResponseEntity<Customer> addCustomer(@RequestBody Customer customer) {
-        Customer customerObj = customerRepo.save(customer);
-        return new ResponseEntity<>(customerObj, HttpStatus.OK);
+    public ResponseEntity<Customer> addCustomer(@RequestBody CustomerRequest customerRequest) {
+        Optional<Zipcode> zipcodeOptional = zipcodeRepo.findById(customerRequest.getZipcodeId());
+        if (!zipcodeOptional.isPresent()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        Zipcode zipcode = zipcodeOptional.get();
+        Customer customer = new Customer();
+        customer.setZipcode(zipcode);
+        customer.setStreetAddress(customerRequest.getStreetAddress());
+        customer.setTelephoneID(customerRequest.getTelephoneID());
+        System.out.println(customer);
+        zipcode.addCustomer(customer);
+        customerRepo.save(customer);
+        return new ResponseEntity<>(customer, HttpStatus.OK);
     }
 }

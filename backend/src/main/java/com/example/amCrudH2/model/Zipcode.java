@@ -22,8 +22,17 @@ public class Zipcode {
     private Long zipcodeID;
     private String city;
     private String state;
-    @OneToMany(targetEntity = Customer.class, cascade = CascadeType.ALL)
-    @JoinColumn(name = "zipcode_id", referencedColumnName = "zipcodeID")
+    @OneToMany(mappedBy = "zipcode", cascade = {CascadeType.ALL})
+    // given name then original id
     private List<Customer> customers;
 
+    public Long getZipcodeID() {
+        return this.zipcodeID;
+    }
+
+    public void addCustomer(Customer customer) {
+        this.customers.add(customer);
+        return;
+    }
 }
+
