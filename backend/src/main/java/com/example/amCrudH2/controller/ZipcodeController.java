@@ -54,8 +54,31 @@ public class ZipcodeController {
         return new ResponseEntity<>(zipcodeObj, HttpStatus.OK);
     }
 
-    @PostMapping
-    public void updateZipcodeById() {}
+    @PostMapping("/zipcode/{id}")
+    public ResponseEntity<Zipcode> updateZipcodeById(@PathVariable Long id, @RequestBody Zipcode newZipcodeData) {
+        Optional<Zipcode> oldZipcodeData = zipcodeRepo.findById(id);
+
+        if (oldZipcodeData.isPresent()) {
+            Zipcode updatedZipcodeData = oldZipcodeData.get();
+            // Check and update fields if they are present in the JSON request
+            if (newZipcodeData.getZipcodeID() != null) {
+                updatedZipcodeData.setZipcodeID(newZipcodeData.getZipcodeID());
+            }
+            if (newZipcodeData.getState() != null) {
+                updatedZipcodeData.setState(newZipcodeData.getState());
+            }
+            if (newZipcodeData.getCity() != null) {
+                updatedZipcodeData.setCity(newZipcodeData.getCity());
+            }
+            if (newZipcodeData.getCustomers() != null) {
+                updatedZipcodeData.setCustomers(newZipcodeData.getCustomers());
+            }
+
+            Zipcode zipcodeObj = zipcodeRepo.save(updatedZipcodeData);
+            return new ResponseEntity<>(zipcodeObj, HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
 
     @DeleteMapping
     public void deleteZipcodeById() {}
