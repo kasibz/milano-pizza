@@ -80,6 +80,9 @@ public class ZipcodeController {
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-    @DeleteMapping
-    public void deleteZipcodeById() {}
+    @DeleteMapping("/zipcode/{id}")
+    public ResponseEntity<HttpStatus> deleteZipcodeById(@PathVariable Long id) {
+        zipcodeRepo.deleteById(id);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 }
