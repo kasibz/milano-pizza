@@ -11,7 +11,6 @@ import lombok.*;
 @AllArgsConstructor
 @Setter
 @Getter
-@ToString
 public class Customer {
     @Id
     @JsonProperty("telephoneID")
@@ -28,7 +27,14 @@ public class Customer {
     public Zipcode getZipcode () {
         return this.zipcode;
     }
-
+    @Override
+    public String toString() {
+        return "Customer{" +
+                "telephoneID=" + telephoneID +
+                ", streetAddress='" + streetAddress + '\'' +
+                ", zipcode=" + (zipcode != null ? zipcode.getZipcodeID() : null) +
+                '}';
+    }
     public void setZipcode(Zipcode zipcode) {
 
         this.zipcode = zipcode;

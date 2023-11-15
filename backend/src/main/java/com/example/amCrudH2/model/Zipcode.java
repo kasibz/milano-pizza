@@ -37,5 +37,34 @@ public class Zipcode {
         this.customers.add(customer);
         return;
     }
+
+    public void setZipcodeID(Long zipcodeID) {
+        this.zipcodeID = zipcodeID;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
+
+    public void setCustomers(List<Customer> customers) {
+        this.customers = customers;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public List<Customer> getCustomers() {
+        return customers;
+    }
+
 }
 
