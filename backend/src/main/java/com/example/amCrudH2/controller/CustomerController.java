@@ -66,26 +66,23 @@ public class CustomerController {
 
     // update customer
     @PostMapping("/customer/{id}")
-    public ResponseEntity<Customer> updateCustomerById(@PathVariable Long id, @RequestBody Customer newCustomerData) {
+    public ResponseEntity<Customer> updateCustomerById(@PathVariable Long id, @RequestBody Customer newCustomer) {
         Optional<Customer> oldCustomerData = customerRepo.findById(id);
 
         if (oldCustomerData.isPresent()) {
-            Customer updatedCustomerData = oldCustomerData.get();
+            Customer existingCustomer = oldCustomerData.get();
 
             // I should update the non primary fields here with existing customer then make updated later
-            if (newCustomerData.getTelephoneID() != null) {
-                updatedCustomerData.setTelephoneID(newCustomerData.getTelephoneID());
+            if (newCustomer.getStreetAddress() != null) {
+                existingCustomer.setStreetAddress(newCustomer.getStreetAddress());
             }
 
-            if (newCustomerData.getStreetAddress() != null) {
-                updatedCustomerData.setStreetAddress(newCustomerData.getStreetAddress());
+            if (newCustomer.getZipcode() != null) {
+                existingCustomer.setZipcode(newCustomer.getZipcode());
             }
 
-            if (newCustomerData.getZipcode() != null) {
-                updatedCustomerData.setZipcode(newCustomerData.getZipcode());
-            }
-
-            Customer customerObj = customerRepo.save(updatedCustomerData);
+            // make new object with updated values and give option to change telephone ID
+            Customer customerObj = customerRepo.save(existingCustomer);
             return new ResponseEntity<>(customerObj, HttpStatus.OK);
         }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
