@@ -44,8 +44,7 @@ public class ZipcodeController {
         Optional<Zipcode> zipcodeData = zipcodeRepo.findById(id);
 
         if (zipcodeData.isPresent()) {
-//            List<Customer> customers = customerRepo.findByZipcodeID(id);
-//            System.out.println(customers);
+
             return new ResponseEntity<>(zipcodeData.get(), HttpStatus.OK);
         }
 
