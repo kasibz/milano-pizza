@@ -24,10 +24,11 @@ public class CustomerController {
     private ZipcodeRepo zipcodeRepo;
 
     @GetMapping("/customer")
-    public ResponseEntity<List<Customer>> getAllCustomers() {
+    public ResponseEntity<List<CustomerRepo.CustomerWithZipcodeId>>getAllCustomers() {
         try {
-            List<Customer> customerList = new ArrayList<>();
-            customerRepo.findAll().forEach(customerList::add);
+            List<CustomerRepo.CustomerWithZipcodeId> customerList = customerRepo.findAllWithZipcodeId();
+//            List<Customer> customerList = new ArrayList<>();
+//            customerRepo.findAll().forEach(customerList::add);
 
             if (customerList.isEmpty()) {
                 return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -39,14 +40,14 @@ public class CustomerController {
     }
 
     @GetMapping("/customer/{id}")
-    public ResponseEntity<Customer> getCustomerById(@PathVariable Long id) {
-        Optional<Customer> customerData = customerRepo.findById(id);
+    public ResponseEntity<CustomerRepo.CustomerWithZipcodeId> getCustomerById(@PathVariable Long id) {
+//        CustomerRepo.CustomerWithZipcodeId customer = customerRepo.findByIdWithZipcode(id).stream().findFirst().orElse(null);
+//        Optional<Customer> customerData = customerRepo.findById(id);
 
-        if (customerData.isPresent()) {
-            return new ResponseEntity<>(customerData.get(), HttpStatus.OK);
-        }
+        Optional<CustomerRepo.CustomerWithZipcodeId> customerData = customerRepo.findByIdWithZipcode(id);
 
-        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        return customerData.map(customer -> new ResponseEntity<>(customer, HttpStatus.OK))
+                .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
     @PostMapping("/customer")
