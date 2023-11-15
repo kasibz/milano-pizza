@@ -44,8 +44,8 @@ public class ZipcodeController {
         Optional<Zipcode> zipcodeData = zipcodeRepo.findById(id);
 
         if (zipcodeData.isPresent()) {
-            List<Customer> customers = customerRepo.findByZipcodeID(id);
-            System.out.println(customers);
+//            List<Customer> customers = customerRepo.findByZipcodeID(id);
+//            System.out.println(customers);
             return new ResponseEntity<>(zipcodeData.get(), HttpStatus.OK);
         }
 
@@ -80,6 +80,8 @@ public class ZipcodeController {
             if (newZipcodeData.getCustomers() != null) {
                 updatedZipcodeData.setCustomers(newZipcodeData.getCustomers());
             }
+
+            // new entity here
 
             Zipcode zipcodeObj = zipcodeRepo.save(updatedZipcodeData);
             return new ResponseEntity<>(zipcodeObj, HttpStatus.OK);

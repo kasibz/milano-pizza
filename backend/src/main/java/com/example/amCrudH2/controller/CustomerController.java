@@ -82,8 +82,14 @@ public class CustomerController {
             }
 
             // make new object with updated values and give option to change telephone ID
-            Customer customerObj = customerRepo.save(existingCustomer);
-            return new ResponseEntity<>(customerObj, HttpStatus.OK);
+            Customer updatedCustomer = new Customer();
+            // changed to new telephoneID
+            updatedCustomer.setTelephoneID(newCustomer.getTelephoneID());
+            updatedCustomer.setStreetAddress(existingCustomer.getStreetAddress());
+            updatedCustomer.setZipcode(existingCustomer.getZipcode());
+
+            Customer savedCustomer = customerRepo.save(updatedCustomer);
+            return new ResponseEntity<>(savedCustomer, HttpStatus.OK);
         }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
