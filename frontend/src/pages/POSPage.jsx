@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import MainLayout from '../layouts/MainLayout';
 import axios from "axios";
-
+import {toast} from 'react-toastify';
 
 const POSPage = () => {
 
@@ -12,16 +12,26 @@ const POSPage = () => {
 
     const fetchProducts = async() => {
         setIsLoading(true);
-        const productUrl = "http://localhost:5000/products"
-        const result = await axios.get(productUrl);
+        
+        const result = await axios.get("http://localhost:8080/product");
         setProducts(await result.data);
         setIsLoading(false);
     }
 
+    useEffect(() => {
+        fetchProducts();
+    },[]);
+
+    const toastOptions = {
+        autoClose: 400,
+        pauseOnHover: true,
+    }
+
     const addProductToCart = async(product) =>{
+        // this console prints after the btn click
         // console.log(product);
         let findProductInCart = await cart.find(i=>{
-            return i.id === product.id
+            return i.productID === product.productID
         });
 
         if(findProductInCart){
@@ -29,11 +39,11 @@ const POSPage = () => {
             let newItem;
 
             cart.forEach(cartItem => {
-                if(cartItem.id === product.id) {
+                if(cartItem.productID === product.productID) {
                     newItem = {
                         ...cartItem,
                         quantity: cartItem.quantity + 1,
-                        totalAmount: cartItem.price * (cartItem.quantity + 1)
+                        totalAmount: cartItem.itemPrice * (cartItem.quantity + 1)
                     }
                     newCart.push(newItem);
                 }else {
@@ -41,25 +51,30 @@ const POSPage = () => {
                 }
             })
             setCart(newCart);
+            toast(`Added ${newItem.description} to cart`, toastOptions)
 
         }else{
             let addingProduct = {
                 ...product,
                 'quantity': 1,
-                'totalAmount': product.price,
+                'totalAmount': product.itemPrice,
             }
             setCart([...cart, addingProduct])
+            toast(`Added ${product.description} to cart`, toastOptions)
+
         }
     }
 
     const removeProduct = async(product) =>{
-        const newCart = cart.filter(cartItem => cartItem.id !== product.id);
+        const newCart = cart.filter(cartItem => cartItem.productID !== product.productID);
         setCart(newCart);
     }
 
-    useEffect(() => {
-        fetchProducts();
-    },[]);
+    const handleSubmit = () => {
+        console.log("order submitted")
+    }
+
+    
 
     useEffect(() => {
         let newTotalAmount = 0;
@@ -78,11 +93,11 @@ const POSPage = () => {
                         <div key={key} className='col-lg-4 mb-4'>
                             <div className='pos-item px-3 text-center border' 
                             onClick={() => addProductToCart(product)}>
-                                <p>{product.name}</p>
-                                <img className='img-fluid' 
-                                src={product.img} alt={product.name} 
-                                style={{ height:'200px', width:'200px'}}/>
-                                <p>${product.price}</p>
+                                <p>{product.description}</p>
+                                {/* <img className='img-fluid' 
+                                src={product.img} alt={product.productID} 
+                                style={{ height:'200px', width:'200px'}}/> */}
+                                <p>${product.itemPrice}</p>
                             </div>
                         </div>  
                 
@@ -103,21 +118,29 @@ const POSPage = () => {
                                 </tr>
                             </thead>
                             <tbody>
-                            { cart ? cart.map((cartProduct, key) => <tr key={key}>
-                                <td>{cartProduct.id}</td>
-                                <td>{cartProduct.name}</td>
-                                <td>{cartProduct.price}</td>
-                                <td>{cartProduct.quantity}</td>
-                                <td>{cartProduct.totalAmount}</td>
-                                <td>
-                                    <button className='btn btn-danger btn-sm' onClick={() => removeProduct(cartProduct)}>Remove</button>
-                                </td>
-                                </tr>)
-                                : 'No Item in Cart'}
+                            { cart ? cart.map((cartProduct, key) => 
+                                <tr key={key}>
+                                    <td>{cartProduct.productID}</td>
+                                    <td>{cartProduct.description}</td>
+                                    <td>{cartProduct.itemPrice}</td>
+                                    <td>{cartProduct.quantity}</td>
+                                    <td>{cartProduct.totalAmount}</td>
+                                    <td>
+                                        <button className='btn btn-danger btn-sm' onClick={() => removeProduct(cartProduct)}>Remove</button>
+                                    </td>
+                                    </tr>)
+                                    : 'No Item in Cart'}
                             </tbody>
                         </table>
                         <h2 className='px-2 text-white'>Total Amount: ${totalAmount}</h2>
                     </div>
+
+                    <div className='mt-3'>
+                        <button className='btn btn-primary' onClick={handleSubmit}>
+                            Submit Order
+                        </button>
+                    </div>
+
                 </div>
                 
             </div>
