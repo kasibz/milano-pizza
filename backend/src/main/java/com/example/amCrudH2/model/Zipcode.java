@@ -1,5 +1,6 @@
 package com.example.amCrudH2.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.*;
@@ -25,7 +26,7 @@ public class Zipcode {
     private String city;
     private String state;
     @OneToMany(mappedBy = "zipcode", cascade = {CascadeType.ALL})
-    // given name then original id
+    @JsonManagedReference
     private List<Customer> customers = new ArrayList<>();
 
     public Long getZipcodeID() {
