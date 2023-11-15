@@ -1,8 +1,11 @@
 package com.example.amCrudH2.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.*;
+
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -22,8 +25,17 @@ public class Zipcode {
     private Long zipcodeID;
     private String city;
     private String state;
-    @OneToMany(targetEntity = Customer.class, cascade = CascadeType.ALL)
-    @JoinColumn(name = "zipcode_id", referencedColumnName = "zipcodeID")
-    private List<Customer> customers;
+    @OneToMany(mappedBy = "zipcode", cascade = {CascadeType.ALL})
+    @JsonManagedReference
+    private List<Customer> customers = new ArrayList<>();
 
+    public Long getZipcodeID() {
+        return zipcodeID;
+    }
+
+    public void addCustomer(Customer customer) {
+        this.customers.add(customer);
+        return;
+    }
 }
+
