@@ -63,4 +63,39 @@ public class CustomerController {
         customerRepo.save(customer);
         return new ResponseEntity<>(customer, HttpStatus.OK);
     }
+
+    // update customer
+    @PostMapping("/customer/{id}")
+    public ResponseEntity<Customer> updateCustomerById(@PathVariable Long id, @RequestBody Customer newCustomerData) {
+        Optional<Customer> oldCustomerData = customerRepo.findById(id);
+
+        if (oldCustomerData.isPresent()) {
+            Customer updatedCustomerData = oldCustomerData.get();
+
+            // I should update the non primary fields here with existing customer then make updated later
+            if (newCustomerData.getTelephoneID() != null) {
+                updatedCustomerData.setTelephoneID(newCustomerData.getTelephoneID());
+            }
+
+            if (newCustomerData.getStreetAddress() != null) {
+                updatedCustomerData.setStreetAddress(newCustomerData.getStreetAddress());
+            }
+
+            if (newCustomerData.getZipcode() != null) {
+                updatedCustomerData.setZipcode(newCustomerData.getZipcode());
+            }
+
+            Customer customerObj = customerRepo.save(updatedCustomerData);
+            return new ResponseEntity<>(customerObj, HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+
+    @DeleteMapping("/customer/{id}")
+    public ResponseEntity<HttpStatus> deleteZipcodeById(@PathVariable Long id) {
+        customerRepo.deleteById(id);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+
 }
