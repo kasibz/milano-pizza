@@ -1,6 +1,5 @@
 package com.example.amCrudH2.model;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -14,10 +13,31 @@ import lombok.*;
 public class Product 
 {
     @Id
-    @JsonProperty("productID")
-    private Long productID;
-    private String description;
-    private double itemPrice;
-    private double discount;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    
+    private String name;
+    private Double price;
+
+
+    public Long getProductID()
+    {
+        return id;
+    }
+    
+    public String getName()
+    {
+        return name;
+    }
+
+    public Double getPrice()
+    {
+        return price;
+    }
+
+    public void setPrice(double price)
+    {
+        this.price = price;
+    }
     
 }
