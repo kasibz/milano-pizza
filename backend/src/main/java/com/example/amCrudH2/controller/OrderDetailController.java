@@ -2,7 +2,6 @@ package com.example.amCrudH2.controller;
 
 import com.example.amCrudH2.dto.OrderDetailRequest;
 import com.example.amCrudH2.model.CustomerOrder;
-import com.example.amCrudH2.model.Employee;
 import com.example.amCrudH2.model.OrderDetail;
 import com.example.amCrudH2.model.Product;
 import com.example.amCrudH2.repo.CustomerOrderRepo;
@@ -10,7 +9,6 @@ import com.example.amCrudH2.repo.OrderDetailRepo;
 import com.example.amCrudH2.repo.ProductRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 

@@ -18,9 +18,10 @@ public interface OrderDetailRepo extends JpaRepository<OrderDetail, Long> {
         Long getQuantity();
         Double getDiscount();
         Double getSubTotal();
+        String getProductName();
     }
 
     // write query to get the right stuff
-    @Query("SELECT od.ID as ID, od.customerOrder.ID as customerOrderID, od.product.ID as productID, od.orderDate as orderDate, od.quantity as quantity, od.discount as discount, od.subTotal as subTotal FROM OrderDetail od WHERE od.customerOrder.ID = :customerOrderId")
+    @Query("SELECT od.ID as ID, od.customerOrder.ID as customerOrderID, od.product.ID as productID, od.product.name as productName, od.orderDate as orderDate, od.quantity as quantity, od.discount as discount, od.subTotal as subTotal FROM OrderDetail od WHERE od.customerOrder.ID = :customerOrderId")
     List<OrderDetailWithAssociations> findODByIdWithAssociations(@Param("customerOrderId") Long Id);
 }
