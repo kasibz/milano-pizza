@@ -20,15 +20,14 @@ public interface CustomerRepo extends JpaRepository<Customer, Long> {
     public interface CustomerWithZipcodeId {
         Long getTelephoneID();
         String getStreetAddress();
-        List<CustomerOrder> getCustomerOrders();
         Long getZipcodeId(); // Include the foreign key
     }
 
     // Use the projection in the query method
-    @Query("SELECT c.telephoneID as telephoneID, c.streetAddress as streetAddress, c.customerOrders as customerOrders, c.zipcode.zipcodeID as zipcodeId FROM Customer c")
+    @Query("SELECT c.telephoneID as telephoneID, c.streetAddress as streetAddress, c.zipcode.zipcodeID as zipcodeId FROM Customer c")
     List<CustomerWithZipcodeId> findAllWithZipcodeId();
 
-    @Query("SELECT c.telephoneID as telephoneID, c.streetAddress as streetAddress, c.customerOrders as customerOrders, c.zipcode.zipcodeID as zipcodeId FROM Customer c WHERE c.telephoneID = :telephoneId")
+    @Query("SELECT c.telephoneID as telephoneID, c.streetAddress as streetAddress, c.zipcode.zipcodeID as zipcodeId FROM Customer c WHERE c.telephoneID = :telephoneId")
     Optional<CustomerWithZipcodeId> findByIdWithZipcode(@Param("telephoneId") Long telephoneId);
 
 }
