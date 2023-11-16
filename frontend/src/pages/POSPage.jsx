@@ -70,6 +70,8 @@ const POSPage = () => {
         setCart(newCart);
     }
 
+    // this will handle submitting order 
+    // post request to order
     const handleSubmit = () => {
         console.log("order submitted")
     }
