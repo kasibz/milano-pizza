@@ -2,7 +2,6 @@ package com.example.amCrudH2.controller;
 
 import com.example.amCrudH2.dto.OrderDetailRequest;
 import com.example.amCrudH2.model.CustomerOrder;
-import com.example.amCrudH2.model.Employee;
 import com.example.amCrudH2.model.OrderDetail;
 import com.example.amCrudH2.model.Product;
 import com.example.amCrudH2.repo.CustomerOrderRepo;
@@ -10,7 +9,6 @@ import com.example.amCrudH2.repo.OrderDetailRepo;
 import com.example.amCrudH2.repo.ProductRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,8 +27,17 @@ public class OrderDetailController {
     private ProductRepo productRepo;
 
     @GetMapping("customerOrder/{id}/orderDetail")
-    public ResponseEntity<List<OrderDetailRepo.OrderDetailWithAssociations>> getOrderDetailById(@PathVariable Long id) {
-        List<OrderDetailRepo.OrderDetailWithAssociations> orderDetailData = orderDetailRepo.findODByIdWithAssociations(id);
+    public ResponseEntity<List<OrderDetailRepo.OrderDetailWithAssociations>> getOrderDetailByCustomerOrderId(@PathVariable Long id) {
+        List<OrderDetailRepo.OrderDetailWithAssociations> orderDetailData = orderDetailRepo.findOrderDetailByCustomerOrderIdWithAssociations(id);
+        if (orderDetailData.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(orderDetailData, HttpStatus.OK);
+    }
+
+    @GetMapping("product/{id}/orderDetail")
+    public ResponseEntity<List<OrderDetailRepo.OrderDetailWithAssociations>> getOrderDetailByProductId(@PathVariable Long id) {
+        List<OrderDetailRepo.OrderDetailWithAssociations> orderDetailData = orderDetailRepo.findOrderDetailByProductIdWithAssociations(id);
         if (orderDetailData.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
@@ -55,7 +62,8 @@ public class OrderDetailController {
         orderDetail.setProduct(existingProduct);
         orderDetail.setOrderDate(orderDetailRequest.getOrderDate());
         orderDetail.setQuantity(orderDetailRequest.getQuantity());
-        orderDetail.setPriceCharged(orderDetailRequest.getPriceCharged());
+        orderDetail.setDiscount(orderDetailRequest.getDiscount());
+        orderDetail.setSubTotal(orderDetailRequest.getSubTotal());
 
         orderDetailRepo.save(orderDetail);
         return new ResponseEntity<>(orderDetail, HttpStatus.OK);
