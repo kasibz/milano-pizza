@@ -6,6 +6,8 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.List;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -14,6 +16,7 @@ public class CustomerRequest {
     private Long telephoneID;
     private String streetAddress;
     private Long zipcode_id;
+    private List<Long> customerOrderIds;
 
     public Long getZipcodeId() {
         return this.zipcode_id;
@@ -25,5 +28,9 @@ public class CustomerRequest {
 
     public String getStreetAddress() {
         return this.streetAddress;
+    }
+
+    public List<Long> getCustomerOrderIds() {
+        return customerOrderIds;
     }
 }

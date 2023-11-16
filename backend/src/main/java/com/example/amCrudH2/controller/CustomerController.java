@@ -46,6 +46,8 @@ public class CustomerController {
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
+    // since customer is in the list of customers under a zipcode, we must retrieve the zipcode parent
+    // we instantiate the customer and set its parent!
     @PostMapping("/customer")
     public ResponseEntity<Customer> addCustomer(@RequestBody CustomerRequest customerRequest) {
         Optional<Zipcode> zipcodeOptional = zipcodeRepo.findById(customerRequest.getZipcodeId());
@@ -78,12 +80,17 @@ public class CustomerController {
                 existingCustomer.setZipcode(newCustomer.getZipcode());
             }
 
+            if (newCustomer.getCustomerOrders() != null) {
+                existingCustomer.setCustomerOrders(newCustomer.getCustomerOrders());
+            }
+
             // make new object with updated values and give option to change telephone ID
             Customer updatedCustomer = new Customer();
             // changed to new telephoneID
             updatedCustomer.setTelephoneID(newCustomer.getTelephoneID());
             updatedCustomer.setStreetAddress(existingCustomer.getStreetAddress());
             updatedCustomer.setZipcode(existingCustomer.getZipcode());
+            updatedCustomer.setCustomerOrders(existingCustomer.getCustomerOrders());
 
             Customer savedCustomer = customerRepo.save(updatedCustomer);
             return new ResponseEntity<>(savedCustomer, HttpStatus.OK);

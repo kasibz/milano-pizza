@@ -43,16 +43,23 @@ public class CustomerOrderController {
         }
     }
 
-    @GetMapping("/customerOrder/{id}")
-    public ResponseEntity<CustomerOrderRepo.CustomerOrderWithAssociations> getCustomerOrderById(@PathVariable Long id) {
-        Optional<CustomerOrderRepo.CustomerOrderWithAssociations> customerOrderData = customerOrderRepo.findByIdWithAssociations(id);
-
-        return customerOrderData.map(customerOrder -> new ResponseEntity<>(customerOrder, HttpStatus.OK))
-                .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    // this should ideally grab orders either by employee or customer
+    @GetMapping("customer/{id}/customerOrder")
+    public ResponseEntity<List<CustomerOrderRepo.CustomerOrderWithAssociations>> getCustomerOrderById(@PathVariable Long id) {
+//        Optional<CustomerOrderRepo.CustomerOrderWithAssociations> customerOrderData = customerOrderRepo.findByIdWithAssociations(id);
+//
+//        return customerOrderData.map(customerOrder -> new ResponseEntity<>(customerOrder, HttpStatus.OK))
+//                .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+        List<CustomerOrderRepo.CustomerOrderWithAssociations> customerOrderData = customerOrderRepo.findByIdWithAssociations(id);
+        if (customerOrderData.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(customerOrderData, HttpStatus.OK);
     }
 
 
     // I prefer a DTO to transfer the ID's in a clean way
+    // this needs to get added to both customer and employee customerOrder lists!
     @PostMapping("/customerOrder")
     public ResponseEntity<CustomerOrder> addCustomerOrder(@RequestBody CustomerOrderRequest customerOrderRequest) {
         // find customer and employee and associate with this order
