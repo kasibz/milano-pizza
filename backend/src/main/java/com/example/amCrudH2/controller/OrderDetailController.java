@@ -27,8 +27,17 @@ public class OrderDetailController {
     private ProductRepo productRepo;
 
     @GetMapping("customerOrder/{id}/orderDetail")
-    public ResponseEntity<List<OrderDetailRepo.OrderDetailWithAssociations>> getOrderDetailById(@PathVariable Long id) {
-        List<OrderDetailRepo.OrderDetailWithAssociations> orderDetailData = orderDetailRepo.findODByIdWithAssociations(id);
+    public ResponseEntity<List<OrderDetailRepo.OrderDetailWithAssociations>> getOrderDetailByCustomerOrderId(@PathVariable Long id) {
+        List<OrderDetailRepo.OrderDetailWithAssociations> orderDetailData = orderDetailRepo.findOrderDetailByCustomerOrderIdWithAssociations(id);
+        if (orderDetailData.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(orderDetailData, HttpStatus.OK);
+    }
+
+    @GetMapping("product/{id}/orderDetail")
+    public ResponseEntity<List<OrderDetailRepo.OrderDetailWithAssociations>> getOrderDetailByProductId(@PathVariable Long id) {
+        List<OrderDetailRepo.OrderDetailWithAssociations> orderDetailData = orderDetailRepo.findOrderDetailByProductIdWithAssociations(id);
         if (orderDetailData.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
