@@ -12,6 +12,9 @@ function MainLayout({children}) {
                     <div className="container">
                         <Link to="/" className="navbar-brand">DevPOS</Link>
                     </div>
+                    <div className="container">
+                        <Link to="/login" className='navbar-brand'>Login</Link>
+                    </div>
                 </nav>
             </header>
             <main>
