@@ -1,9 +1,13 @@
 package com.example.amCrudH2.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "Customer")
@@ -16,6 +20,8 @@ public class Customer {
     @JsonProperty("telephoneID")
     private Long telephoneID;
     private String streetAddress;
+
+    // customer can also have many customerOrders, but not implemented, just made a route to show them
 
     // we're saying that customer is the many and that zipcode is a fk
     @ManyToOne(fetch = FetchType.EAGER)

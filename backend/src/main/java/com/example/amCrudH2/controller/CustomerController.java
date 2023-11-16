@@ -24,10 +24,9 @@ public class CustomerController {
     private ZipcodeRepo zipcodeRepo;
 
     @GetMapping("/customer")
-    public ResponseEntity<List<Customer>> getAllCustomers() {
+    public ResponseEntity<List<CustomerRepo.CustomerWithZipcodeId>>getAllCustomers() {
         try {
-            List<Customer> customerList = new ArrayList<>();
-            customerRepo.findAll().forEach(customerList::add);
+            List<CustomerRepo.CustomerWithZipcodeId> customerList = customerRepo.findAllWithZipcodeId();
 
             if (customerList.isEmpty()) {
                 return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -39,16 +38,16 @@ public class CustomerController {
     }
 
     @GetMapping("/customer/{id}")
-    public ResponseEntity<Customer> getCustomerById(@PathVariable Long id) {
-        Optional<Customer> customerData = customerRepo.findById(id);
+    public ResponseEntity<CustomerRepo.CustomerWithZipcodeId> getCustomerById(@PathVariable Long id) {
 
-        if (customerData.isPresent()) {
-            return new ResponseEntity<>(customerData.get(), HttpStatus.OK);
-        }
+        Optional<CustomerRepo.CustomerWithZipcodeId> customerData = customerRepo.findByIdWithZipcode(id);
 
-        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        return customerData.map(customer -> new ResponseEntity<>(customer, HttpStatus.OK))
+                .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
+    // since customer is in the list of customers under a zipcode, we must retrieve the zipcode parent
+    // we instantiate the customer and set its parent!
     @PostMapping("/customer")
     public ResponseEntity<Customer> addCustomer(@RequestBody CustomerRequest customerRequest) {
         Optional<Zipcode> zipcodeOptional = zipcodeRepo.findById(customerRequest.getZipcodeId());

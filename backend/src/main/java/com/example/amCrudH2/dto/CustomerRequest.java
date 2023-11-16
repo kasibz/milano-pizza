@@ -6,6 +6,8 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.List;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor

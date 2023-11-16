@@ -33,11 +33,6 @@ public class Zipcode {
         return zipcodeID;
     }
 
-    public void addCustomer(Customer customer) {
-        this.customers.add(customer);
-        return;
-    }
-
     public void setZipcodeID(Long zipcodeID) {
         this.zipcodeID = zipcodeID;
     }
