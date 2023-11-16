@@ -20,7 +20,7 @@ public class Product
     private Double price;
 
 
-    public Long getProductID()
+    public Long getID()
     {
         return id;
     }
