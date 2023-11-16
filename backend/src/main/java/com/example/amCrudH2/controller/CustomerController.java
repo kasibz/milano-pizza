@@ -27,8 +27,6 @@ public class CustomerController {
     public ResponseEntity<List<CustomerRepo.CustomerWithZipcodeId>>getAllCustomers() {
         try {
             List<CustomerRepo.CustomerWithZipcodeId> customerList = customerRepo.findAllWithZipcodeId();
-//            List<Customer> customerList = new ArrayList<>();
-//            customerRepo.findAll().forEach(customerList::add);
 
             if (customerList.isEmpty()) {
                 return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -41,8 +39,6 @@ public class CustomerController {
 
     @GetMapping("/customer/{id}")
     public ResponseEntity<CustomerRepo.CustomerWithZipcodeId> getCustomerById(@PathVariable Long id) {
-//        CustomerRepo.CustomerWithZipcodeId customer = customerRepo.findByIdWithZipcode(id).stream().findFirst().orElse(null);
-//        Optional<Customer> customerData = customerRepo.findById(id);
 
         Optional<CustomerRepo.CustomerWithZipcodeId> customerData = customerRepo.findByIdWithZipcode(id);
 
