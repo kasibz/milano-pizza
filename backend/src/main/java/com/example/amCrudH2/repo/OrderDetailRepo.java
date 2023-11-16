@@ -20,6 +20,6 @@ public interface OrderDetailRepo extends JpaRepository<OrderDetail, Long> {
     }
 
     // write query to get the right stuff
-    @Query("SELECT od.ID as ID, od.customerOrder.ID as customerOrderID, od.product.productID as productID, od.orderDate as orderDate, od.quantity as quantity, od.priceCharged as priceCharged FROM OrderDetail od WHERE od.customerOrder.ID = :customerOrderId")
+    @Query("SELECT od.ID as ID, od.customerOrder.ID as customerOrderID, od.product.ID as productID, od.orderDate as orderDate, od.quantity as quantity, od.priceCharged as priceCharged FROM OrderDetail od WHERE od.customerOrder.ID = :customerOrderId")
     List<OrderDetailWithAssociations> findODByIdWithAssociations(@Param("customerOrderId") Long Id);
 }
