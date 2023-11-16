@@ -9,11 +9,6 @@ import lombok.Setter;
 
 import java.time.LocalDate;
 
-//POST
-//customerOrder/{customerOrderId}/OrderDetail
-//
-////GET
-//customerOrder/{customerOrderId}/OrderDetail
 @Entity
 @Table(name = "OrderDetail")
 @NoArgsConstructor
@@ -36,7 +31,8 @@ public class OrderDetail {
     private Product product;
     private LocalDate orderDate;
     private Long quantity;
-    private Double priceCharged;
+    private Double discount;
+    private Double subTotal;
 
     public Long getId() {
         return id;
@@ -74,11 +70,19 @@ public class OrderDetail {
         this.quantity = quantity;
     }
 
-    public Double getPriceCharged() {
-        return priceCharged;
+    public Double getDiscount() {
+        return discount;
     }
 
-    public void setPriceCharged(Double priceCharged) {
-        this.priceCharged = priceCharged;
+    public void setDiscount(Double discount) {
+        this.discount = discount;
+    }
+
+    public Double getSubTotal() {
+        return subTotal;
+    }
+
+    public void setSubTotal(Double subTotal) {
+        this.subTotal = subTotal;
     }
 }

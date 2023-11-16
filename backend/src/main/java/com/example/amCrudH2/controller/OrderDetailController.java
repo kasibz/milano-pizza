@@ -55,7 +55,8 @@ public class OrderDetailController {
         orderDetail.setProduct(existingProduct);
         orderDetail.setOrderDate(orderDetailRequest.getOrderDate());
         orderDetail.setQuantity(orderDetailRequest.getQuantity());
-        orderDetail.setPriceCharged(orderDetailRequest.getPriceCharged());
+        orderDetail.setDiscount(orderDetailRequest.getDiscount());
+        orderDetail.setSubTotal(orderDetailRequest.getSubTotal());
 
         orderDetailRepo.save(orderDetail);
         return new ResponseEntity<>(orderDetail, HttpStatus.OK);
