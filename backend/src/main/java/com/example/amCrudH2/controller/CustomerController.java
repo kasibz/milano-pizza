@@ -80,17 +80,12 @@ public class CustomerController {
                 existingCustomer.setZipcode(newCustomer.getZipcode());
             }
 
-            if (newCustomer.getCustomerOrders() != null) {
-                existingCustomer.setCustomerOrders(newCustomer.getCustomerOrders());
-            }
-
             // make new object with updated values and give option to change telephone ID
             Customer updatedCustomer = new Customer();
             // changed to new telephoneID
             updatedCustomer.setTelephoneID(newCustomer.getTelephoneID());
             updatedCustomer.setStreetAddress(existingCustomer.getStreetAddress());
             updatedCustomer.setZipcode(existingCustomer.getZipcode());
-            updatedCustomer.setCustomerOrders(existingCustomer.getCustomerOrders());
 
             Customer savedCustomer = customerRepo.save(updatedCustomer);
             return new ResponseEntity<>(savedCustomer, HttpStatus.OK);

@@ -61,14 +61,6 @@ public class Customer {
     public Long getTelephoneID() {
         return telephoneID;
     }
-
-    public List<CustomerOrder> getCustomerOrders() {
-        return customerOrders;
-    }
-
-    public void setCustomerOrders(List<CustomerOrder> customerOrders) {
-        this.customerOrders = customerOrders;
-    }
 }
 
 

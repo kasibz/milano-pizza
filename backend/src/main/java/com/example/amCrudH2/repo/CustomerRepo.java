@@ -31,8 +31,5 @@ public interface CustomerRepo extends JpaRepository<Customer, Long> {
     @Query("SELECT c.telephoneID as telephoneID, c.streetAddress as streetAddress, c.customerOrders as customerOrders, c.zipcode.zipcodeID as zipcodeId FROM Customer c WHERE c.telephoneID = :telephoneId")
     Optional<CustomerWithZipcodeId> findByIdWithZipcode(@Param("telephoneId") Long telephoneId);
 
-    @Query("SELECT c.telephoneID as telephoneID, c.streetAddress as streetAddress, c.zipcode.zipcodeID as zipcodeId, co.id as customerOrderId FROM Customer c LEFT JOIN c.customerOrders co WHERE c.telephoneID = :telephoneId")
-    List<CustomerRequest> findCustomerWithOrdersByTelephoneId(@Param("telephoneId") Long telephoneId);
-
 }
 

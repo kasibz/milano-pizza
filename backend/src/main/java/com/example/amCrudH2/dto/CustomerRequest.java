@@ -16,7 +16,6 @@ public class CustomerRequest {
     private Long telephoneID;
     private String streetAddress;
     private Long zipcode_id;
-    private List<Long> customerOrderIds;
 
     public Long getZipcodeId() {
         return this.zipcode_id;
@@ -28,9 +27,5 @@ public class CustomerRequest {
 
     public String getStreetAddress() {
         return this.streetAddress;
-    }
-
-    public List<Long> getCustomerOrderIds() {
-        return customerOrderIds;
     }
 }
