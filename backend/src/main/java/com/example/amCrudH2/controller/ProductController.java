@@ -1,9 +1,9 @@
 package com.example.amCrudH2.controller;
-
 import com.example.amCrudH2.model.Product;
 import com.example.amCrudH2.repo.ProductRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -59,8 +59,24 @@ public class ProductController {
         return new ResponseEntity<>(productObj, HttpStatus.OK);
     }
 
-//    @PostMapping
-//    public void updateProductById() {}
+    @PostMapping("product/{id}")
+    public ResponseEntity<Product> updateProductById(@PathVariable Long id, @RequestBody Product newProductData) 
+    {
+        Optional<Product> productData = productRepo.findById(id);
+
+        if(productData.isPresent())
+        {
+            Product updatedProductData = productData.get();
+            if(newProductData.getPrice() != null)
+            {
+                updatedProductData.setPrice(newProductData.getPrice());
+            }
+            //
+            Product productObj = productRepo.save(updatedProductData);
+            return new ResponseEntity<>(productObj, HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
 //
 //    @DeleteMapping
 //    public void deleteProductById() {}
