@@ -5,6 +5,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 
 function MainLayout({children}) {
+
     return (
         <div>
             <header>
@@ -14,6 +15,9 @@ function MainLayout({children}) {
                     </div>
                     <div className="container">
                         <Link to="/login" className='navbar-brand'>Login</Link>
+                    </div>
+                    <div className="container">
+                        <Link to="/logout" className='navbar-brand'>LogOut</Link>
                     </div>
                 </nav>
             </header>
