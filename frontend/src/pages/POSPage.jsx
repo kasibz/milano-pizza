@@ -5,6 +5,12 @@ import {toast} from 'react-toastify';
 
 const POSPage = () => {
 
+    useEffect(() => {
+        if (localStorage.getItem('loggedInEmployee') === null) {
+        navigate('/login');
+        };
+    },[]);
+    
     const [products, setProducts] = useState([])
     const [cart, setCart] = useState([]);
     const [isLoading, setIsLoading] = useState(false);

@@ -9,7 +9,7 @@ const EmployeeLogin = () => {
     
     const navigate = useNavigate();
 
-    const url = 'http://localhost:8080/employee'
+    const url = `http://localhost:8080/employee/${employeeID}`
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -17,22 +17,20 @@ const EmployeeLogin = () => {
             const response = await Axios.get(url);
             const employeeData = response.data;
             
-            console.log("employeeID:", employeeID);
-            console.log("password:", password);
-            console.log(response);
-            console.log(employeeData);
-            // Check if employeeID matches id and password matches lastName
-            // Need to use toString buddy, this data is an object form
-            // const employeeIDconverted = employeeData.id.toString()
+            // console.log("employeeID:", employeeID);
+            // console.log("password:", password);
+            // console.log(response);
+            // console.log("employeeData", employeeData);
+            // console.log("lookhere", employeeData.lastName);
 
-            const matchingEmployee = employeeData.find(employee => employee.id.toString() === employeeID)
-
-            console.log("employeeData.id:", matchingEmployee);
-            console.log("employeedata.lastname", matchingEmployee.lastName);
-
-            if (matchingEmployee && matchingEmployee.lastName === password) {
-                navigate('/signup');
+            if (employeeData.id.toString() === employeeID && employeeData.lastName === password) {
+                // local storage
+                // the loggedInEMployee is a key
+                // it's not just a comment!!!!
+                localStorage.setItem('loggedInEmployee', JSON.stringify(employeeData));
+                navigate('/');
             } else {
+                // you can put an alert here
                 console.error('Wrong ID or pwd you idiottt');
             }
         } catch (error) {
