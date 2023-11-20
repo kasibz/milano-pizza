@@ -4,6 +4,7 @@ import POSPage from './pages/POSPage';
 import EmployeeLogin from './pages/EmployeeLogin';
 import EmployeeSignup from './pages/EmployeeSignup';
 import EmployeeLogOut from './pages/EmployeeLogOut';
+import AddProduct from './pages/AddProduct';
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
           <Route path="/login" element = { <EmployeeLogin/> } />
           <Route path="/signup" element = { <EmployeeSignup/> } />
           <Route path="/logout" element = { <EmployeeLogOut/> } />
+          <Route path='/addProduct' element = { <AddProduct/> } />
         </Routes>
       </Router>
     </>
