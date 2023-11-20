@@ -66,7 +66,7 @@ const POSPage = () => {
             let addingProduct = {
                 ...product,
                 'quantity': 1,
-                'totalAmount': product.itemPrice,
+                'totalAmount': product.price,
             }
             setCart([...cart, addingProduct])
             toast(`Added ${product.name} to cart`, toastOptions)
@@ -75,7 +75,7 @@ const POSPage = () => {
     }
 
     const removeProduct = async(product) =>{
-        const newCart = cart.filter(cartItem => cartItem.productID !== product.productID);
+        const newCart = cart.filter(cartItem => cartItem.id !== product.id);
         setCart(newCart);
     }
 
@@ -83,6 +83,8 @@ const POSPage = () => {
     // post request to order
     const handleSubmit = () => {
         console.log("order submitted")
+
+        // post multiple orderDetails 
     }
 
     
@@ -90,7 +92,7 @@ const POSPage = () => {
     useEffect(() => {
         let newTotalAmount = 0;
         cart.forEach(icart => {
-            newTotalAmount = newTotalAmount + parseFloat(icart.price);
+            newTotalAmount = newTotalAmount + parseFloat(icart.price * icart.quantity);
         })
         setTotalAmount(newTotalAmount);
     },[cart])
