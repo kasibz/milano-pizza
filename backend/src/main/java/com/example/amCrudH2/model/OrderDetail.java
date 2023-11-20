@@ -20,12 +20,12 @@ public class OrderDetail {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "customerOrder_id", nullable = false)
     @JsonBackReference
     private CustomerOrder customerOrder;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "product_id", nullable = false)
     @JsonBackReference
     private Product product;
