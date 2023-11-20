@@ -50,7 +50,18 @@ public class CustomerOrderController {
 //
 //        return customerOrderData.map(customerOrder -> new ResponseEntity<>(customerOrder, HttpStatus.OK))
 //                .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
-        List<CustomerOrderRepo.CustomerOrderWithAssociations> customerOrderData = customerOrderRepo.findByIdWithAssociations(id);
+        List<CustomerOrderRepo.CustomerOrderWithAssociations> customerOrderData = customerOrderRepo.findByTelephoneId(id);
+        if (customerOrderData.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(customerOrderData, HttpStatus.OK);
+    }
+
+
+
+    @GetMapping("employee/{id}/customerOrder")
+    public ResponseEntity<List<CustomerOrderRepo.CustomerOrderWithAssociations>> getCustomerOrderByEmployeeId(@PathVariable Long id) {
+        List<CustomerOrderRepo.CustomerOrderWithAssociations> customerOrderData = customerOrderRepo.findAllByEmployeeId(id);
         if (customerOrderData.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }

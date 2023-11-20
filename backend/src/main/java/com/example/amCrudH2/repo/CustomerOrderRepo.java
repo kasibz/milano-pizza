@@ -23,5 +23,9 @@ public interface CustomerOrderRepo extends JpaRepository<CustomerOrder, Long> {
 
     // used to get one customerOrder with id
     @Query("SELECT co.ID as ID, co.customer.telephoneID as telephoneID, co.employee.ID as employeeID FROM CustomerOrder co WHERE co.customer.telephoneID = :telephoneId")
-    List<CustomerOrderWithAssociations> findByIdWithAssociations(@Param("telephoneId") Long Id);
+    List<CustomerOrderWithAssociations> findByTelephoneId(@Param("telephoneId") Long Id);
+
+    //used to get all orders by employee
+    @Query("SELECT co.ID as ID, co.customer.telephoneID as telephoneID, co.employee.ID as employeeID FROM CustomerOrder co WHERE co.employee.ID = :employeeId")
+    List<CustomerOrderWithAssociations> findAllByEmployeeId(@Param("employeeId") Long Id);
 }
