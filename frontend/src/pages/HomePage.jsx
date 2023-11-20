@@ -1,4 +1,4 @@
-import {React, useEffect} from 'react';
+import { useEffect} from 'react';
 import {Link, useNavigate} from 'react-router-dom'
 import MainLayout from '../layouts/MainLayout'
 
@@ -10,8 +10,8 @@ const HomePage = () => {
     useEffect(() => {
         if (localStorage.getItem('loggedInEmployee') === null) {
         navigate('/login');
-        };
-    },[]);
+        }
+    },[navigate]);
 
     // console.log(localStorage.getItem('loggedInEmployee'))
     

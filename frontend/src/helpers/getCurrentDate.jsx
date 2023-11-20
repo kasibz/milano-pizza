@@ -1,0 +1,14 @@
+function getCurrentDate() {
+    const today = new Date();
+  
+    // Extract year, month, and day components
+    const year = today.getFullYear();
+    const month = String(today.getMonth() + 1).padStart(2, '0'); // Months are zero-based
+    const day = String(today.getDate()).padStart(2, '0');
+  
+    const formattedDate = `${year}-${month}-${day}`;
+  
+    return formattedDate;
+  }
+
+  export default getCurrentDate
