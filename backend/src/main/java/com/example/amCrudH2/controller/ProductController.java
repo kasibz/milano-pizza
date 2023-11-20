@@ -3,7 +3,6 @@ import com.example.amCrudH2.model.Product;
 import com.example.amCrudH2.repo.ProductRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -60,24 +59,31 @@ public class ProductController {
     }
 
     @PostMapping("product/{id}")
-    public ResponseEntity<Product> updateProductById(@PathVariable Long id, @RequestBody Product newProductData) 
+    public ResponseEntity<Product> updateProductById(@PathVariable Long id, @RequestBody Product newProduct)
     {
-        Optional<Product> productData = productRepo.findById(id);
+        Optional<Product> oldProduct = productRepo.findById(id);
 
-        if(productData.isPresent())
+        if(oldProduct.isPresent())
         {
-            Product updatedProductData = productData.get();
-            if(newProductData.getPrice() != null)
+            Product updatedProduct = oldProduct.get();
+            if(newProduct.getPrice() != null)
             {
-                updatedProductData.setPrice(newProductData.getPrice());
+                updatedProduct.setPrice(newProduct.getPrice());
+            }
+
+            if(newProduct.getName() != null) {
+                updatedProduct.setName(newProduct.getName());
             }
             //
-            Product productObj = productRepo.save(updatedProductData);
+            Product productObj = productRepo.save(updatedProduct);
             return new ResponseEntity<>(productObj, HttpStatus.OK);
         }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 //
-//    @DeleteMapping
-//    public void deleteProductById() {}
+    @DeleteMapping("product/{id}")
+    public ResponseEntity<HttpStatus> deleteProductById(@PathVariable Long id) {
+        productRepo.deleteById(id);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 }
