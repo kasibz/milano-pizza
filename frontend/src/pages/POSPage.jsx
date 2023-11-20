@@ -1,14 +1,17 @@
-import React, {useEffect, useState} from 'react';
+import {useEffect, useState} from 'react';
 import MainLayout from '../layouts/MainLayout';
 import axios from "axios";
 import {toast} from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
 
 const POSPage = () => {
+
+    const navigate = useNavigate();
 
     useEffect(() => {
         if (localStorage.getItem('loggedInEmployee') === null) {
         navigate('/login');
-        };
+        }
     },[]);
     
     const [products, setProducts] = useState([])
@@ -35,9 +38,9 @@ const POSPage = () => {
 
     const addProductToCart = async(product) =>{
         // this console prints after the btn click
-        // console.log(product);
+        // console.log(product); works fine but isn't adding to cart
         let findProductInCart = await cart.find(i=>{
-            return i.productID === product.productID
+            return i.id === product.id
         });
 
         if(findProductInCart){
@@ -45,11 +48,11 @@ const POSPage = () => {
             let newItem;
 
             cart.forEach(cartItem => {
-                if(cartItem.productID === product.productID) {
+                if(cartItem.id === product.id) {
                     newItem = {
                         ...cartItem,
                         quantity: cartItem.quantity + 1,
-                        totalAmount: cartItem.itemPrice * (cartItem.quantity + 1)
+                        totalAmount: cartItem.price * (cartItem.quantity + 1)
                     }
                     newCart.push(newItem);
                 }else {
@@ -57,7 +60,7 @@ const POSPage = () => {
                 }
             })
             setCart(newCart);
-            toast(`Added ${newItem.description} to cart`, toastOptions)
+            toast(`Added ${newItem.name} to cart`, toastOptions)
 
         }else{
             let addingProduct = {
@@ -66,7 +69,7 @@ const POSPage = () => {
                 'totalAmount': product.itemPrice,
             }
             setCart([...cart, addingProduct])
-            toast(`Added ${product.description} to cart`, toastOptions)
+            toast(`Added ${product.name} to cart`, toastOptions)
 
         }
     }
@@ -87,7 +90,7 @@ const POSPage = () => {
     useEffect(() => {
         let newTotalAmount = 0;
         cart.forEach(icart => {
-            newTotalAmount = newTotalAmount + parseFloat(icart.totalAmount);
+            newTotalAmount = newTotalAmount + parseFloat(icart.price);
         })
         setTotalAmount(newTotalAmount);
     },[cart])
@@ -101,11 +104,11 @@ const POSPage = () => {
                         <div key={key} className='col-lg-4 mb-4'>
                             <div className='pos-item px-3 text-center border' 
                             onClick={() => addProductToCart(product)}>
-                                <p>{product.description}</p>
+                                <p>{product.name}</p>
                                 {/* <img className='img-fluid' 
                                 src={product.img} alt={product.productID} 
                                 style={{ height:'200px', width:'200px'}}/> */}
-                                <p>${product.itemPrice}</p>
+                                <p>${product.price}</p>
                             </div>
                         </div>  
                 
@@ -128,9 +131,9 @@ const POSPage = () => {
                             <tbody>
                             { cart ? cart.map((cartProduct, key) => 
                                 <tr key={key}>
-                                    <td>{cartProduct.productID}</td>
-                                    <td>{cartProduct.description}</td>
-                                    <td>{cartProduct.itemPrice}</td>
+                                    <td>{cartProduct.id}</td>
+                                    <td>{cartProduct.name}</td>
+                                    <td>{cartProduct.price}</td>
                                     <td>{cartProduct.quantity}</td>
                                     <td>{cartProduct.totalAmount}</td>
                                     <td>
