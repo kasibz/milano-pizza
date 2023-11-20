@@ -83,6 +83,10 @@ const POSPage = () => {
     // post request to order
     const handleSubmit = () => {
         console.log("order submitted")
+        const confirmSubmit = window.confirm('Are you sure you want to delete?');
+        if (confirmSubmit) {
+            
+        }
     }
 
     const handleAddProduct = () => {

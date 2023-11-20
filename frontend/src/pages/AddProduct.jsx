@@ -20,6 +20,7 @@ const AddProduct = () => {
                 price: price,
                 image: image
             });
+            console.log(name, price, image);
             console.log("product added", response.data);
             navigate('/pos')
         } catch (error) {
@@ -52,7 +53,7 @@ const AddProduct = () => {
                             placeholder="Enter the price of the product"
                             value={price}
                             onChange={(e) => setPrice(e.target.value)}
-                            type="number"
+                            type="float"
                             />
                         </div>
                         <div className="form-floating mb-3">
