@@ -85,6 +85,9 @@ const POSPage = () => {
         console.log("order submitted")
     }
 
+    const handleAddProduct = () => {
+        navigate('/addProduct')
+    }
     
 
     useEffect(() => {
@@ -97,6 +100,9 @@ const POSPage = () => {
 
     return (
         <MainLayout> 
+            <div>
+            <button onClick={handleAddProduct}>Add Product</button>
+            </div>
             <div className='row'>
                 <div className='col-lg-8'>
                     <div className='row'>
@@ -105,9 +111,9 @@ const POSPage = () => {
                             <div className='pos-item px-3 text-center border' 
                             onClick={() => addProductToCart(product)}>
                                 <p>{product.name}</p>
-                                {/* <img className='img-fluid' 
-                                src={product.img} alt={product.productID} 
-                                style={{ height:'200px', width:'200px'}}/> */}
+                                <img className='img-fluid' 
+                                src={product.image} alt={product.productID} 
+                                style={{ height:'200px', width:'200px'}}/>
                                 <p>${product.price}</p>
                             </div>
                         </div>  
