@@ -47,11 +47,16 @@ public class CustomerOrderController {
     // this should ideally grab orders either by employee or customer
     @GetMapping("customer/{id}/customerOrder")
     public ResponseEntity<List<CustomerOrderRepo.CustomerOrderWithAssociations>> getCustomerOrderById(@PathVariable Long id) {
-//        Optional<CustomerOrderRepo.CustomerOrderWithAssociations> customerOrderData = customerOrderRepo.findByIdWithAssociations(id);
-//
-//        return customerOrderData.map(customerOrder -> new ResponseEntity<>(customerOrder, HttpStatus.OK))
-//                .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
         List<CustomerOrderRepo.CustomerOrderWithAssociations> customerOrderData = customerOrderRepo.findByIdWithAssociations(id);
+        if (customerOrderData.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(customerOrderData, HttpStatus.OK);
+    }
+
+    @GetMapping("zipcode/{id}/customerOrder")
+    public ResponseEntity<List<CustomerOrderRepo.CustomerOrderWithAssociations>> getCustomerOrderByZipcode(@PathVariable Long id) {
+        List<CustomerOrderRepo.CustomerOrderWithAssociations> customerOrderData = customerOrderRepo.findByZipcodeWithAssociations(id);
         if (customerOrderData.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
