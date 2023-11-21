@@ -17,8 +17,12 @@ const CustomerLookup = () => {
         try{
             console.log(telephoneID);
             const response = await Axios.get(url);
+            const responseData = response.data;
 
             console.log("customer order(s) found:", response.data);
+            console.log("customer order id = ", responseData[0].id.toString());
+            console.log(responseData);
+
         }
         catch (error) {
             console.error('Error message: ', error)
