@@ -16,7 +16,7 @@ function OrderZipcode() {
 
     // this should change to get customerOrders
     useEffect(() => {
-        axios.get(`http://localhost:8080/zipcode/${zipcodeID}/orderDetail`)
+        axios.get(`http://localhost:8080/zipcode/${zipcodeID}/customerOrder`)
         .then(res => {
             setOrders(res.data)
             console.log(res.data)
@@ -27,6 +27,12 @@ function OrderZipcode() {
             console.error('Error:', err)
         })
     }, [zipcodeID])
+
+    if (!orders) {return (
+        <MainLayout>
+            <h2>No Entries Found</h2>
+        </MainLayout>
+    )}
 
     return (
         

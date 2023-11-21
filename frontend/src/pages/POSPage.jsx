@@ -98,22 +98,33 @@ const POSPage = () => {
         };
         axios.post(url, postData)
         // in the response is when you call the second post request but it needs to loop through everything in the cart
+        let cartTotal = 0
         .then((response) => {cart.forEach((cartItem) => {
+            let currDate = convertTimeBackend(getCurrentDate())
+            cartTotal += cartItem.subTotal * cartItem.discount // <- this goes into the next call for total 
             axios.post(`http://localhost:8080/customerOrder/${response.data.id}/orderDetail`, {
                 "customerOrder_id": response.data.id,
                 "product_id": cartItem.id,
-                "orderDate": convertTimeBackend(getCurrentDate()),
+                "orderDate": currDate,
                 "quantity": cartItem.quantity,
                 "discount": 1,
                 "subTotal": cartItem.totalAmount
             })
-            .then((secondResponse) => {
+            // call the 3rd api to edit the first customer order and add the total and current date
+            .then((secondResponse) => {axios.post(`http://localhost:8080/customerOrder/${response.data.id}`, {
+                    "customerOrderDate": currDate,
+                    "totalPrice": cartTotal
+                    // handle third response
+                }).then((thirdResponse) => {
+                    console.log(thirdResponse.data)
+                    setSuccess(true)
+                    setTimeout(() => {
+                        navigate('/')
+                    }, 1500)
+                })
                 // alert a good secondResponse?
                 console.log(secondResponse.data)
-                setSuccess(true)
-                setTimeout(() => {
-                    navigate('/')
-                }, 1500)
+
             })
         })
             // Handle the success response from the first call
