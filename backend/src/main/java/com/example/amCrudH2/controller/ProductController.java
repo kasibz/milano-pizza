@@ -74,6 +74,10 @@ public class ProductController {
             if(newProduct.getName() != null) {
                 updatedProduct.setName(newProduct.getName());
             }
+
+            if(newProduct.getImage() != null) {
+                updatedProduct.setImage(newProduct.getImage());
+            }
             //
             Product productObj = productRepo.save(updatedProduct);
             return new ResponseEntity<>(productObj, HttpStatus.OK);

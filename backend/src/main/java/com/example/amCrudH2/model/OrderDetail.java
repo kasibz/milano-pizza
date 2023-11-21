@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "OrderDetail")
@@ -29,7 +30,7 @@ public class OrderDetail {
     @JoinColumn(name = "product_id", nullable = false)
     @JsonBackReference
     private Product product;
-    private LocalDate orderDate;
+    private LocalDateTime orderDate;
     private Long quantity;
     private Double discount;
     private Double subTotal;
@@ -54,11 +55,11 @@ public class OrderDetail {
         this.product = product;
     }
 
-    public LocalDate getOrderDate() {
+    public LocalDateTime getOrderDate() {
         return orderDate;
     }
 
-    public void setOrderDate(LocalDate orderDate) {
+    public void setOrderDate(LocalDateTime orderDate) {
         this.orderDate = orderDate;
     }
 

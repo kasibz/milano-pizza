@@ -4,7 +4,6 @@ import com.example.amCrudH2.dto.CustomerOrderRequest;
 import com.example.amCrudH2.model.Customer;
 import com.example.amCrudH2.model.CustomerOrder;
 import com.example.amCrudH2.model.Employee;
-import com.example.amCrudH2.model.Zipcode;
 import com.example.amCrudH2.repo.CustomerOrderRepo;
 import com.example.amCrudH2.repo.CustomerRepo;
 import com.example.amCrudH2.repo.EmployeeRepo;
@@ -17,6 +16,7 @@ import javax.swing.text.html.Option;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+@CrossOrigin("http://localhost:5173")
 
 @RestController
 public class CustomerOrderController {
