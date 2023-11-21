@@ -3,21 +3,29 @@ import MainLayout from '../layouts/MainLayout';
 import axios from "axios";
 import {toast} from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
+import getCurrentDate from '../helpers/getCurrentDate';
+import convertTimeBackend from '../helpers/convertTimeBackend';
 
 const POSPage = () => {
 
     const navigate = useNavigate();
 
     useEffect(() => {
+        setEmployeeID(JSON.parse(localStorage.getItem("loggedInEmployee")).id)
+        setCustomerID(JSON.parse(localStorage.getItem("loggedInCustomer")).id);
         if (localStorage.getItem('loggedInEmployee') === null) {
         navigate('/login');
+
         }
-    },[]);
+    },[navigate]);
     
     const [products, setProducts] = useState([])
     const [cart, setCart] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
     const [totalAmount, setTotalAmount] = useState(0);
+    const [employeeID, setEmployeeID] = useState()
+    const [customerID, setCustomerID] = useState()
+    const [success, setSuccess] = useState(false)
 
     const fetchProducts = async() => {
         setIsLoading(true);
@@ -66,7 +74,7 @@ const POSPage = () => {
             let addingProduct = {
                 ...product,
                 'quantity': 1,
-                'totalAmount': product.itemPrice,
+                'totalAmount': product.price,
             }
             setCart([...cart, addingProduct])
             toast(`Added ${product.name} to cart`, toastOptions)
@@ -75,18 +83,60 @@ const POSPage = () => {
     }
 
     const removeProduct = async(product) =>{
-        const newCart = cart.filter(cartItem => cartItem.productID !== product.productID);
+        const newCart = cart.filter(cartItem => cartItem.id !== product.id);
         setCart(newCart);
     }
 
     // this will handle submitting order 
     // post request to order
+    // This is a nested api call to make the second call wait on the first
     const handleSubmit = () => {
-        console.log("order submitted")
-        const confirmSubmit = window.confirm('Are you sure you want to delete?');
-        if (confirmSubmit) {
-            
-        }
+        const url = "http://localhost:8080/customerOrder";
+        const postData = {
+          telephone_id: customerID,
+          employee_id: employeeID,
+        };
+        axios.post(url, postData)
+        // in the response is when you call the second post request but it needs to loop through everything in the cart
+        let cartTotal = 0
+        .then((response) => {cart.forEach((cartItem) => {
+            let currDate = convertTimeBackend(getCurrentDate())
+            cartTotal += cartItem.subTotal * cartItem.discount // <- this goes into the next call for total 
+            axios.post(`http://localhost:8080/customerOrder/${response.data.id}/orderDetail`, {
+                "customerOrder_id": response.data.id,
+                "product_id": cartItem.id,
+                "orderDate": currDate,
+                "quantity": cartItem.quantity,
+                "discount": 1,
+                "subTotal": cartItem.totalAmount
+            })
+            // call the 3rd api to edit the first customer order and add the total and current date
+            .then((secondResponse) => {axios.post(`http://localhost:8080/customerOrder/${response.data.id}`, {
+                    "customerOrderDate": currDate,
+                    "totalPrice": cartTotal
+                    // handle third response
+                }).then((thirdResponse) => {
+                    console.log(thirdResponse.data)
+                    setSuccess(true)
+                    setTimeout(() => {
+                        navigate('/')
+                    }, 1500)
+                })
+                // alert a good secondResponse?
+                console.log(secondResponse.data)
+
+            })
+        })
+            // Handle the success response from the first call
+            // so this response is for the customerOrderID
+            console.log('Response:', response.data);
+
+          })
+          .catch((error) => {
+            // Handle the error from effectively both calls at this point
+            console.error('Error:', error);
+          });
+
     }
 
     const handleAddProduct = () => {
@@ -97,13 +147,23 @@ const POSPage = () => {
     useEffect(() => {
         let newTotalAmount = 0;
         cart.forEach(icart => {
-            newTotalAmount = newTotalAmount + parseFloat(icart.price);
+            newTotalAmount = newTotalAmount + parseFloat(icart.price * icart.quantity);
         })
         setTotalAmount(newTotalAmount);
     },[cart])
 
+
+
     return (
         <MainLayout> 
+            {
+                    success && 
+                    <div className="alert alert-success" role="alert">
+                        Order Created!
+                    </div>
+                    
+            }
+
             <div>
             <button onClick={handleAddProduct}>Add Product</button>
             </div>
