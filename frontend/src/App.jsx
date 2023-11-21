@@ -3,8 +3,7 @@ import HomePage from './pages/HomePage';
 import POSPage from './pages/POSPage';
 import EmployeeLogin from './pages/EmployeeLogin';
 import EmployeeSignup from './pages/EmployeeSignup';
-import EmployeeLogOut from './pages/EmployeeLogOut';
-import AddProduct from './pages/AddProduct';
+import CustomerLookup from './pages/CustomerLookup';
 
 function App() {
   return (
@@ -15,8 +14,7 @@ function App() {
           <Route path="/pos" element = {<POSPage/>} />
           <Route path="/login" element = { <EmployeeLogin/> } />
           <Route path="/signup" element = { <EmployeeSignup/> } />
-          <Route path="/logout" element = { <EmployeeLogOut/> } />
-          <Route path='/addProduct' element = { <AddProduct/> } />
+          <Route path="/customerlookup" element = { <CustomerLookup /> }/>
         </Routes>
       </Router>
     </>
