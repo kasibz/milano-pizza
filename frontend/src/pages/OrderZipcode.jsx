@@ -46,7 +46,7 @@ function OrderZipcode() {
                             weekList.map(item => (
                                 <div key={item.id}>
                                     <Link to={`/orderbyzipcode/${zipcodeID}/orderDetail/${item.id}`}>
-                                        <p>${item.totalPrice} - {convertToHumanTime(item.customerOrderDate)}</p>
+                                        <p>{convertToHumanTime(item.customerOrderDate)} Employee: {item.employeeFirstName} | Customer Telephone {item.telephoneID}</p>
                                     </Link>
                                     
                                 </div>

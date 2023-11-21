@@ -109,7 +109,7 @@ const POSPage = () => {
                 "product_id": cartItem.id,
                 "orderDate": currDate,
                 "quantity": cartItem.quantity,
-                "discount": 1,
+                "discount": 0,
                 "subTotal": cartItem.totalAmount
             })
             // call the 3rd api to edit the first customer order and add the total and current date
