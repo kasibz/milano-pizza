@@ -21,6 +21,8 @@ const HomePage = () => {
                 <h1>Welcome to Alyssa Milano's Pizzaria POS system</h1>
                 <p></p>
                 <Link to='/pos' className='btn btn-primary'>Click to start the POS system</Link>
+                <Link to='/pos' className='btn btn-primary'>Click to start the POS system</Link>
+                <Link to='/pos' className='btn btn-primary'>Click to start the POS system</Link>
             </div>
         </MainLayout>
     );

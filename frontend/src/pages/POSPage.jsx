@@ -4,6 +4,7 @@ import axios from "axios";
 import {toast} from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 import getCurrentDate from '../helpers/getCurrentDate';
+import convertTimeBackend from '../helpers/convertTimeBackend';
 
 const POSPage = () => {
 
@@ -101,7 +102,7 @@ const POSPage = () => {
             axios.post(`http://localhost:8080/customerOrder/${response.data.id}/orderDetail`, {
                 "customerOrder_id": response.data.id,
                 "product_id": cartItem.id,
-                "orderDate": getCurrentDate(),
+                "orderDate": convertTimeBackend(getCurrentDate()),
                 "quantity": cartItem.quantity,
                 "discount": 1,
                 "subTotal": cartItem.totalAmount
