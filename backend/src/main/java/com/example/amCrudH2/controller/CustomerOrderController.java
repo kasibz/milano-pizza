@@ -4,7 +4,7 @@ import com.example.amCrudH2.dto.CustomerOrderRequest;
 import com.example.amCrudH2.model.Customer;
 import com.example.amCrudH2.model.CustomerOrder;
 import com.example.amCrudH2.model.Employee;
-import com.example.amCrudH2.model.Zipcode;
+import com.example.amCrudH2.model.Product;
 import com.example.amCrudH2.repo.CustomerOrderRepo;
 import com.example.amCrudH2.repo.CustomerRepo;
 import com.example.amCrudH2.repo.EmployeeRepo;
@@ -17,7 +17,6 @@ import javax.swing.text.html.Option;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-
 @CrossOrigin("http://localhost:5173")
 
 @RestController
@@ -48,22 +47,25 @@ public class CustomerOrderController {
     // this should ideally grab orders either by employee or customer
     @GetMapping("customer/{id}/customerOrder")
     public ResponseEntity<List<CustomerOrderRepo.CustomerOrderWithAssociations>> getCustomerOrderById(@PathVariable Long id) {
-//        Optional<CustomerOrderRepo.CustomerOrderWithAssociations> customerOrderData = customerOrderRepo.findByIdWithAssociations(id);
-//
-//        return customerOrderData.map(customerOrder -> new ResponseEntity<>(customerOrder, HttpStatus.OK))
-//                .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
-        List<CustomerOrderRepo.CustomerOrderWithAssociations> customerOrderData = customerOrderRepo.findByTelephoneId(id);
+        List<CustomerOrderRepo.CustomerOrderWithAssociations> customerOrderData = customerOrderRepo.findByIdWithAssociations(id);
         if (customerOrderData.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
         return new ResponseEntity<>(customerOrderData, HttpStatus.OK);
     }
 
-
+    @GetMapping("zipcode/{id}/customerOrder")
+    public ResponseEntity<List<CustomerOrderRepo.CustomerOrderWithAssociations>> getCustomerOrderByZipcode(@PathVariable Long id) {
+        List<CustomerOrderRepo.CustomerOrderWithAssociations> customerOrderData = customerOrderRepo.findByZipcodeWithAssociations(id);
+        if (customerOrderData.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(customerOrderData, HttpStatus.OK);
+    }
 
     @GetMapping("employee/{id}/customerOrder")
-    public ResponseEntity<List<CustomerOrderRepo.CustomerOrderWithAssociations>> getCustomerOrderByEmployeeId(@PathVariable Long id) {
-        List<CustomerOrderRepo.CustomerOrderWithAssociations> customerOrderData = customerOrderRepo.findAllByEmployeeId(id);
+    public ResponseEntity<List<CustomerOrderRepo.CustomerOrderWithAssociations>> getCustomerOrderByEmployeeID(@PathVariable Long id) {
+        List<CustomerOrderRepo.CustomerOrderWithAssociations> customerOrderData = customerOrderRepo.findByEmployeeIDWithAssociations(id);
         if (customerOrderData.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
@@ -94,6 +96,29 @@ public class CustomerOrderController {
         customerOrderRepo.save(customerOrder);
         return new ResponseEntity<>(customerOrder, HttpStatus.OK);
 
+    }
+
+    @PostMapping("/customerOrder/{id}")
+    public ResponseEntity<CustomerOrder> updateCustomerOrderById(@PathVariable Long id, @RequestBody CustomerOrder newCustomerOrder)
+    {
+        Optional<CustomerOrder> oldCustomerOrder = customerOrderRepo.findById(id);
+
+        if(oldCustomerOrder.isPresent())
+        {
+            CustomerOrder updatedCustomerOrder = oldCustomerOrder.get();
+            if(newCustomerOrder.getCustomerOrderDate() != null)
+            {
+                updatedCustomerOrder.setCustomerOrderDate(newCustomerOrder.getCustomerOrderDate());
+            }
+
+            if(newCustomerOrder.getTotalPrice() > 0) {
+                updatedCustomerOrder.setTotalPrice(newCustomerOrder.getTotalPrice());
+            }
+            //
+            CustomerOrder customerOrderObj = customerOrderRepo.save(updatedCustomerOrder);
+            return new ResponseEntity<>(customerOrderObj, HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
 }
