@@ -7,7 +7,7 @@ function groupByWeek(data) {
     // Iterate through each object
     data.forEach(obj => {
       // Get the week of the year
-      const week = getWeek(new Date(obj.orderDate));
+      const week = getWeek(new Date(obj.customerOrderDate));
   
       // If the week is not already a key in the map, create an array for it
       if (!groupedData.has(week)) {
