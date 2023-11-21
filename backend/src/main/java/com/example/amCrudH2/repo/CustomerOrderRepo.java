@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -14,11 +15,14 @@ public interface CustomerOrderRepo extends JpaRepository<CustomerOrder, Long> {
         Long getID();
         Long getTelephoneID();
         Long getEmployeeID();
+        String getEmployeeFirstName();
+        Double getTotalPrice();
+        LocalDateTime getOrderDate();
         // Include other fields from CustomerOrder if needed
     }
 
     // to get all customerOrders
-    @Query("SELECT co.ID as ID, co.customer.telephoneID as telephoneID, co.employee.ID as employeeID FROM CustomerOrder co")
+    @Query("SELECT co.ID as ID, co.customer.telephoneID as telephoneID, co.employee.ID as employeeID, co.employee.firstName as employeeFirstName, co.totalPrice as totalPrice, co.orderDate as orderDate FROM CustomerOrder co")
     List<CustomerOrderWithAssociations> findAllWithAssociations();
 
     // used to get one customerOrder with id

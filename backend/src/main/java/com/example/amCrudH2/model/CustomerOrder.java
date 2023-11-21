@@ -7,6 +7,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
+
 @Entity
 @Table(name = "CustomerOrder")
 @NoArgsConstructor
@@ -27,9 +29,29 @@ public class CustomerOrder {
     @JoinColumn(name="employee_id", nullable = false)
     @JsonBackReference
     private Employee employee;
+    @Column(nullable = true)
+    private double totalPrice;
+    @Column(nullable = true)
+    private LocalDateTime orderDate;
 
     public Long getId() {
         return id;
+    }
+
+    public double getTotalPrice() {
+        return totalPrice;
+    }
+
+    public void setTotalPrice(double totalPrice) {
+        this.totalPrice = totalPrice;
+    }
+
+    public LocalDateTime getOrderDate() {
+        return orderDate;
+    }
+
+    public void setOrderDate(LocalDateTime orderDate) {
+        this.orderDate = orderDate;
     }
 
     public Customer getCustomer() {

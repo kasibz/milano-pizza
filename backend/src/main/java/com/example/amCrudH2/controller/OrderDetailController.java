@@ -46,6 +46,15 @@ public class OrderDetailController {
         return new ResponseEntity<>(orderDetailData, HttpStatus.OK);
     }
 
+    @GetMapping("zipcode/{id}/orderDetail")
+    public ResponseEntity<List<OrderDetailRepo.OrderDetailWithAssociations>> getOrderDetailByZipcode(@PathVariable Long id) {
+        List<OrderDetailRepo.OrderDetailWithAssociations> orderDetailData = orderDetailRepo.findOrderDetailByZipcodeWithAssociations(id);
+        if (orderDetailData.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(orderDetailData, HttpStatus.OK);
+    }
+
     @PostMapping("customerOrder/{id}/orderDetail")
     public ResponseEntity<OrderDetail> addOrderDetail(@RequestBody OrderDetailRequest orderDetailRequest) {
         // find Customer Order and Product associated with this detail

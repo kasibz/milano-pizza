@@ -4,6 +4,7 @@ import com.example.amCrudH2.dto.CustomerOrderRequest;
 import com.example.amCrudH2.model.Customer;
 import com.example.amCrudH2.model.CustomerOrder;
 import com.example.amCrudH2.model.Employee;
+import com.example.amCrudH2.model.Product;
 import com.example.amCrudH2.repo.CustomerOrderRepo;
 import com.example.amCrudH2.repo.CustomerRepo;
 import com.example.amCrudH2.repo.EmployeeRepo;
@@ -81,6 +82,29 @@ public class CustomerOrderController {
         customerOrderRepo.save(customerOrder);
         return new ResponseEntity<>(customerOrder, HttpStatus.OK);
 
+    }
+
+    @PostMapping("/customerOrder/{id}")
+    public ResponseEntity<CustomerOrder> updateCustomerOrderById(@PathVariable Long id, @RequestBody CustomerOrder newCustomerOrder)
+    {
+        Optional<CustomerOrder> oldCustomerOrder = customerOrderRepo.findById(id);
+
+        if(oldCustomerOrder.isPresent())
+        {
+            CustomerOrder updatedCustomerOrder = oldCustomerOrder.get();
+            if(newCustomerOrder.getOrderDate() != null)
+            {
+                updatedCustomerOrder.setOrderDate(newCustomerOrder.getOrderDate());
+            }
+
+            if(newCustomerOrder.getTotalPrice() > 0) {
+                updatedCustomerOrder.setTotalPrice(newCustomerOrder.getTotalPrice());
+            }
+            //
+            CustomerOrder customerOrderObj = customerOrderRepo.save(updatedCustomerOrder);
+            return new ResponseEntity<>(customerOrderObj, HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
 }
