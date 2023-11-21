@@ -63,6 +63,15 @@ public class CustomerOrderController {
         return new ResponseEntity<>(customerOrderData, HttpStatus.OK);
     }
 
+    @GetMapping("employee/{id}/customerOrder")
+    public ResponseEntity<List<CustomerOrderRepo.CustomerOrderWithAssociations>> getCustomerOrderByEmployeeID(@PathVariable Long id) {
+        List<CustomerOrderRepo.CustomerOrderWithAssociations> customerOrderData = customerOrderRepo.findByEmployeeIDWithAssociations(id);
+        if (customerOrderData.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(customerOrderData, HttpStatus.OK);
+    }
+
 
     // I prefer a DTO to transfer the ID's in a clean way
     // this needs to get added to both customer and employee customerOrder lists!

@@ -31,4 +31,7 @@ public interface CustomerOrderRepo extends JpaRepository<CustomerOrder, Long> {
 
     @Query("SELECT co.ID as ID, co.customer.telephoneID as telephoneID, co.employee.ID as employeeID, co.employee.firstName as employeeFirstName, co.totalPrice as totalPrice, co.customerOrderDate as customerOrderDate FROM CustomerOrder co WHERE co.customer.zipcode.zipcodeID = :zipcodeId")
     List<CustomerOrderWithAssociations> findByZipcodeWithAssociations(@Param("zipcodeId") Long Id);
+
+    @Query("SELECT co.ID as ID, co.customer.telephoneID as telephoneID, co.employee.ID as employeeID, co.employee.firstName as employeeFirstName, co.totalPrice as totalPrice, co.customerOrderDate as customerOrderDate FROM CustomerOrder co WHERE co.employee.id = :employeeId")
+    List<CustomerOrderWithAssociations> findByEmployeeIDWithAssociations(@Param("employeeId") Long Id);
 }
