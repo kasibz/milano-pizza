@@ -1,7 +1,7 @@
 import MainLayout from "../layouts/MainLayout";
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import groupByWeek from "../helpers/groupByWeek";
 import convertToHumanTime from "../helpers/convertToHumanTime";
 
@@ -18,7 +18,6 @@ function OrderZipcode() {
     useEffect(() => {
         axios.get(`http://localhost:8080/zipcode/${zipcodeID}/customerOrder`)
         .then(res => {
-            setOrders(res.data)
             console.log(res.data)
             // got week from here
             setOrders(groupByWeek(res.data))
@@ -37,8 +36,8 @@ function OrderZipcode() {
     return (
         
         <MainLayout>
-            {console.log(orders)}
             <div>
+                <h2>Orders by {zipcodeID}</h2>
                 {
                 Array.from(orders.entries()).map(([weekNum, weekList]) => (
                     <div key={weekNum}>
@@ -46,7 +45,10 @@ function OrderZipcode() {
                         {
                             weekList.map(item => (
                                 <div key={item.id}>
-                                    <p>${item.subTotal * item.discount} - {convertToHumanTime(item.orderDate)}</p>
+                                    <Link to={`/orderbyzipcode/${zipcodeID}/orderDetail/${item.id}`}>
+                                        <p>${item.totalPrice} - {convertToHumanTime(item.customerOrderDate)}</p>
+                                    </Link>
+                                    
                                 </div>
                             ))
                         }

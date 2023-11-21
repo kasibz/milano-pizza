@@ -91,17 +91,19 @@ const POSPage = () => {
     // post request to order
     // This is a nested api call to make the second call wait on the first
     const handleSubmit = () => {
+        
         const url = "http://localhost:8080/customerOrder";
         const postData = {
           telephone_id: customerID,
           employee_id: employeeID,
         };
+        let cartTotal = 0
         axios.post(url, postData)
         // in the response is when you call the second post request but it needs to loop through everything in the cart
-        let cartTotal = 0
+        
         .then((response) => {cart.forEach((cartItem) => {
             let currDate = convertTimeBackend(getCurrentDate())
-            cartTotal += cartItem.subTotal * cartItem.discount // <- this goes into the next call for total 
+            cartTotal += cartItem.totalAmount * cartItem.discount // <- this goes into the next call for total 
             axios.post(`http://localhost:8080/customerOrder/${response.data.id}/orderDetail`, {
                 "customerOrder_id": response.data.id,
                 "product_id": cartItem.id,
