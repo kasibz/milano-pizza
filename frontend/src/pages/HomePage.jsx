@@ -30,6 +30,7 @@ const HomePage = () => {
                 <p></p>
                 <Link to='/pos' className='btn btn-primary'>Click to start the POS system</Link>
                 <Link to='/pos' className='btn btn-primary'>Orders By Employee</Link>
+                <br /><br />
                 {
                     zipcodes.map((zipcodeID, idx) => {
                         return (
