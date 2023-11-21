@@ -22,7 +22,7 @@ public class CustomerOrder {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="telephone_id", nullable = false)
-    @JsonBackReference
+    @JsonBackReference(value = "user-customer")
     private Customer customer;
 
     @ManyToOne(fetch = FetchType.EAGER)
@@ -32,7 +32,7 @@ public class CustomerOrder {
     @Column(nullable = true)
     private double totalPrice;
     @Column(nullable = true)
-    private LocalDateTime orderDate;
+    private LocalDateTime customerOrderDate;
 
     public Long getId() {
         return id;
@@ -46,12 +46,12 @@ public class CustomerOrder {
         this.totalPrice = totalPrice;
     }
 
-    public LocalDateTime getOrderDate() {
-        return orderDate;
+    public LocalDateTime getCustomerOrderDate() {
+        return customerOrderDate;
     }
 
-    public void setOrderDate(LocalDateTime orderDate) {
-        this.orderDate = orderDate;
+    public void setCustomerOrderDate(LocalDateTime customerOrderDate) {
+        this.customerOrderDate = customerOrderDate;
     }
 
     public Customer getCustomer() {

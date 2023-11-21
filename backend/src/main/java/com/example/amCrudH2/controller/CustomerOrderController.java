@@ -92,9 +92,9 @@ public class CustomerOrderController {
         if(oldCustomerOrder.isPresent())
         {
             CustomerOrder updatedCustomerOrder = oldCustomerOrder.get();
-            if(newCustomerOrder.getOrderDate() != null)
+            if(newCustomerOrder.getCustomerOrderDate() != null)
             {
-                updatedCustomerOrder.setOrderDate(newCustomerOrder.getOrderDate());
+                updatedCustomerOrder.setCustomerOrderDate(newCustomerOrder.getCustomerOrderDate());
             }
 
             if(newCustomerOrder.getTotalPrice() > 0) {

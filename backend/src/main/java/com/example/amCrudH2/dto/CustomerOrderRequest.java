@@ -15,7 +15,7 @@ public class CustomerOrderRequest {
     private Long id;
     private Long telephone_id;
     private Long employee_id;
-    private LocalDateTime orderDate;
+    private LocalDateTime customerOrderDate;
     private Double totalPrice;
 
 
@@ -23,8 +23,8 @@ public class CustomerOrderRequest {
         return id;
     }
 
-    public LocalDateTime getOrderDate() {
-        return orderDate;
+    public LocalDateTime getCustomerOrderDate() {
+        return customerOrderDate;
     }
 
     public Double getTotalPrice() {
