@@ -6,6 +6,7 @@ import EmployeeSignup from './pages/EmployeeSignup';
 import EmployeeLogOut from './pages/EmployeeLogOut';
 import AddProduct from './pages/AddProduct';
 import OrderZipcode from './pages/OrderZipcode';
+import EmployeeOrderDetail from './pages/EmployeeOrderDetail';
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
           <Route path="/logout" element = { <EmployeeLogOut/> } />
           <Route path='/addProduct' element = { <AddProduct/> } />
           <Route path='/orderbyzipcode/:zipcodeID' element = { <OrderZipcode/> } />
+          <Route path='/employeeorderdetail' element = { <EmployeeOrderDetail/> } />
         </Routes>
       </Router>
     </>
