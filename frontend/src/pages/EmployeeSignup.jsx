@@ -20,9 +20,9 @@ const EmployeeSignup = () => {
                 lastName: lastName,
                 status: true
             });
-
+            let result = response.data
             console.log("employee created:", response.data);
-
+            alert(`your log in id is ${result.id}`)
             //to reset the form fields
             navigate('/login')
         } catch (error) {
