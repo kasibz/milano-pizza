@@ -1,7 +1,7 @@
 import {useEffect, useState} from 'react';
 import MainLayout from '../layouts/MainLayout';
 import axios from "axios";
-import { useNavigate, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import convertToHumanTime from '../helpers/convertToHumanTime';
 import groupByWeek from '../helpers/groupByWeek';
 
@@ -28,6 +28,7 @@ const EmployeeOrderDetail = () => {
     const fetchOrders = async() => {
         if (selectedEmployee) {
             const response = await axios.get(`http://localhost:8080/employee/${selectedEmployee}/customerOrder`);
+            console.log("the get request", response.data)
             setOrders(groupByWeek(response.data));
         }
     }
@@ -55,29 +56,27 @@ const EmployeeOrderDetail = () => {
         <div>
             <h2>Orders Made By Selected Employee</h2>
             <ul>
-                {
-                Array.from(orders.entries()).map(([weekNum, weekList]) => (
-                    <div key={weekNum}>
-                        <h2>Week {weekNum}</h2>
-                        {
-                            weekList.map(order => (
-                                <li key={order.id}>
-                                <Link to={`/employeeorderdetail/orderDetail/${selectedEmployee}/${order.id}`}>
-                                    Order ID: {order.id}| tele: {order.telephoneID}| Order Date: {convertToHumanTime(order.customerOrderDate)} | Employee Name: {order.employeeFirstName}
-                                </Link>
+                {console.log("in body",orders)}
+            {
+                
+                Array.from(orders.entries()).map(([year, yearData]) => (
+                    <div key={year}>
+                    <h2>{year}</h2>
+                    {Object.entries(yearData).map(([weekNum, weekList]) => (
+                        <div key={weekNum}>
+                        <h3>Week {weekNum}</h3>
+                        {weekList.map(order => (
+                            <li key={order.id}>
+                            <Link to={`/employeeorderdetail/orderDetail/${selectedEmployee}/${order.id}`}>
+                                Order ID: {order.id} | Tele: {order.telephoneID} | Order Date: {convertToHumanTime(order.customerOrderDate)} | Employee Name: {order.employeeFirstName}
+                            </Link>
                             </li>
-                            ))
-                        }
+                        ))}
+                        </div>
+                    ))}
                     </div>
                 ))
-                }
-                {/* {orders.map((order) => (
-                    <li key={order.id}>
-                        <Link to={`/employeeorderdetail/orderDetail/${selectedEmployee}/${order.id}`}>
-                            Order ID: {order.id}| tele: {order.telephoneID}| Order Date: {convertToHumanTime(order.customerOrderDate)} | Employee Name: {order.employeeFirstName}
-                        </Link>
-                    </li>
-                ))} */}
+            }
             </ul>
         </div>
         </MainLayout>
