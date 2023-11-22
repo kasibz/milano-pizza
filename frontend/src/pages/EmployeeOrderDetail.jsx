@@ -56,21 +56,30 @@ const EmployeeOrderDetail = () => {
         <div>
             <h2>Orders Made By Selected Employee</h2>
             <ul>
-                {console.log("in body",orders)}
             {
-                
                 Array.from(orders.entries()).map(([year, yearData]) => (
-                    <div key={year}>
-                    <h2>{year}</h2>
+                    <div key={year} >
+                        <p>
+                            <a className="btn btn-primary" data-bs-toggle="collapse" href="#yearCollapse" role="button" aria-expanded="false" aria-controls="collapseExample">
+                                <h4>{year}</h4>
+                            </a>
+                        </p>
                     {Object.entries(yearData).map(([weekNum, weekList]) => (
-                        <div key={weekNum}>
-                        <h3>Week {weekNum}</h3>
+                        <div key={weekNum} id='yearCollapse'>
+                            <button className="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                                {weekNum}
+                            </button>
                         {weekList.map(order => (
-                            <li key={order.id}>
+                            <div key={order.id}>
+
+                            <div className="collapse" id="collapseExample">
+                            <div className="card card-body">
                             <Link to={`/employeeorderdetail/orderDetail/${selectedEmployee}/${order.id}`}>
                                 Order ID: {order.id} | Tele: {order.telephoneID} | Order Date: {convertToHumanTime(order.customerOrderDate)} | Employee Name: {order.employeeFirstName}
                             </Link>
-                            </li>
+                            </div>
+                        </div>
+                            </div>
                         ))}
                         </div>
                     ))}
