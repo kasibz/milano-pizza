@@ -21,7 +21,11 @@ const CustomerLookup = () => {
 
             console.log("customer order(s) found:", response.data);
             console.log("customer order id = ", responseData[0].id.toString());
+            const customerOrderID = responseData[0].id;
             console.log(responseData);
+
+            const newResponse = await Axios.get(`http://localhost:8080/customerOrder/${customerOrderID}/orderDetail`)
+            console.log("order details found: ", newResponse.data);
 
         }
         catch (error) {
