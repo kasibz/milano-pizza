@@ -1,8 +1,6 @@
 package com.example.amCrudH2.repo;
 
-import com.example.amCrudH2.dto.CustomerRequest;
 import com.example.amCrudH2.model.Customer;
-import com.example.amCrudH2.model.CustomerOrder;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
