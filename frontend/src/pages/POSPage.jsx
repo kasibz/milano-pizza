@@ -12,7 +12,7 @@ const POSPage = () => {
 
     useEffect(() => {
         setEmployeeID(JSON.parse(localStorage.getItem("loggedInEmployee")).id)
-        setCustomerID(JSON.parse(localStorage.getItem("loggedInCustomer")).id);
+        setCustomerID(JSON.parse(localStorage.getItem("loggedInCustomer")).telephoneID);
         if (localStorage.getItem('loggedInEmployee') === null) {
         navigate('/login');
 

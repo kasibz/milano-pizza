@@ -1,19 +1,16 @@
 import { useParams } from "react-router-dom";
-import MainLayout from "../layouts/MainLayout";
-import { useEffect, useState } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
+import MainLayout from "../layouts/MainLayout";
 import convertToHumanTime from "../helpers/convertToHumanTime";
 
 
-function OrderDetailZipcode() {
+function EmployeeOrderDetailView() {
 
-    const {customerOrderID} = useParams()
-    const {zipcodeID} = useParams()
+    let {customerOrderID} = useParams()
+    let {employeeID} = useParams()
 
     const [orderDetail, setOrderDetail] = useState([])
-
-      // Calculate the total sum of subTotals
-    const totalSum = orderDetail.reduce((sum, item) => sum + item.subTotal + (item.discount * item.subTotal), 0);
 
     useEffect(() => {
         axios.get(`http://localhost:8080/customerOrder/${customerOrderID}/orderDetail`)
@@ -25,12 +22,13 @@ function OrderDetailZipcode() {
         })
     }, [])
 
-    // need to make the get for the orderDetails
+      // Calculate the total sum of subTotals
+      const totalSum = orderDetail.reduce((sum, item) => sum + item.subTotal + (item.discount * item.subTotal), 0);
 
     return (
         <MainLayout>
             <div>
-                This has the items in the cart for the customer Order {customerOrderID} that is also under {zipcodeID}
+                This has the items in the cart for the customer Order {customerOrderID} that is also under employee {employeeID}
             </div>
             {
                 orderDetail.map((item, idx) => {
@@ -41,9 +39,10 @@ function OrderDetailZipcode() {
                     )
                 })
             }
-        <p>Total: ${totalSum}</p>
+            <hr />
+            <p>Total: ${totalSum}</p>
         </MainLayout>
     );
 }
 
-export default OrderDetailZipcode;
+export default EmployeeOrderDetailView;

@@ -1,25 +1,24 @@
 import {useEffect, useState} from 'react';
 import MainLayout from '../layouts/MainLayout';
 import axios from "axios";
-import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import convertToHumanTime from '../helpers/convertToHumanTime';
+import groupByWeek from '../helpers/groupByWeek';
 
 const EmployeeOrderDetail = () => {
 
     const [employees, setEmployees] = useState([]);
     const [selectedEmployee, setSelectedEmployee] = useState("");
     const [orders, setOrders] = useState([]);
-    
-    const navigate = useNavigate();
 
-    const fetchEmployee = async() => {
+    const fetchEmployees = async() => {
         const response = await axios.get("http://localhost:8080/employee")
         setEmployees(response.data);
-        console.log("response.data", response.data);
         
     }
     
     useEffect(() => {
-        fetchEmployee();
+        fetchEmployees();
     },[]);
 
     const handleSelectChange = (event) => {
@@ -29,14 +28,11 @@ const EmployeeOrderDetail = () => {
     const fetchOrders = async() => {
         if (selectedEmployee) {
             const response = await axios.get(`http://localhost:8080/employee/${selectedEmployee}/customerOrder`);
-            setOrders(response.data);
-        };
-        
+            console.log("the get request", response.data)
+            setOrders(groupByWeek(response.data));
+        }
     }
-// const response = await axios.get()
-//         setOrders(response.data);
-//         console.log("2nd response data", response.data);
-//         console.log("selectedemployee", selectedEmployee);
+
     useEffect(() => {
         fetchOrders();
     }, [selectedEmployee]);
@@ -60,11 +56,36 @@ const EmployeeOrderDetail = () => {
         <div>
             <h2>Orders Made By Selected Employee</h2>
             <ul>
-                {orders.map((order) => (
-                    <li key={order.id}>
-                        Order ID: {order.id}| tele: {order.telephoneID}| Total Price: {order.totalPrice} | Order Date: {order.customerOrderDate} | Employee Name: {order.employeeFirstName}
-                    </li>
-                ))}
+            {
+                Array.from(orders.entries()).map(([year, yearData]) => (
+                    <div key={year} >
+                        <p>
+                            <a className="btn btn-primary" data-bs-toggle="collapse" href="#yearCollapse" role="button" aria-expanded="false" aria-controls="collapseExample">
+                                <h4>{year}</h4>
+                            </a>
+                        </p>
+                    {Object.entries(yearData).map(([weekNum, weekList]) => (
+                        <div key={weekNum} id='yearCollapse'>
+                            <button className="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                                {weekNum}
+                            </button>
+                        {weekList.map(order => (
+                            <div key={order.id}>
+
+                            <div className="collapse" id="collapseExample">
+                            <div className="card card-body">
+                            <Link to={`/employeeorderdetail/orderDetail/${selectedEmployee}/${order.id}`}>
+                                Order ID: {order.id} | Tele: {order.telephoneID} | Order Date: {convertToHumanTime(order.customerOrderDate)} | Employee Name: {order.employeeFirstName}
+                            </Link>
+                            </div>
+                        </div>
+                            </div>
+                        ))}
+                        </div>
+                    ))}
+                    </div>
+                ))
+            }
             </ul>
         </div>
         </MainLayout>
