@@ -1,0 +1,19 @@
+.bg-image {
+    background-image: url('..\images\alyssa pizza.png'); /* Specify the path to your image */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 100vh; /* Adjust the height as needed */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: white; /* Adjust the text color for better visibility */
+  }
+
+.icon-image {
+    content: url('..\images\pizzaicon.png');
+    width: 100px;
+    height: 100px;
+    background-origin: padding-box;
+}
