@@ -27,6 +27,9 @@ function MainLayout({children}) {
                 <Link to="/">Main Menu</Link>
             </nav>
             <nav className="navbar-brand">
+                <Link to="/editemployee">Edit Employee</Link>
+            </nav>
+            <nav className="navbar-brand">
                 <Link to="/login">Login</Link>
             </nav>
             <nav className="navbar-brand">
