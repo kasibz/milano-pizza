@@ -5,6 +5,13 @@ import 'react-toastify/dist/ReactToastify.css';
 
 
 function MainLayout({children}) {
+    // const loggedInEmployee = JSON.parse(localStorage.getItem('loggedInEmployee'));
+
+    // const renderLoggedInEmployee = () => {
+    //     if (loggedInEmployee) {
+    //         return <nav className='navbar-brand'>Hello, {loggedInEmployee.firstName}</nav>;
+    //     } return null;
+    // };
 
     const [employee, setEmployee] = useState(false)
 
@@ -14,32 +21,6 @@ function MainLayout({children}) {
     }, [])
 
     return (
-        // <div>
-        //     <header>
-        //         <nav className="navbar navbar-light bg-primary">
-        //             <div className="container">
-        //                 <Link to="/" className="navbar-brand">Main Menu</Link>
-        //             </div>
-        //             <div className="container">
-        //                 <Link to="/login" className='navbar-brand'>Login</Link>
-        //             </div>
-        //             <div className="container">
-        //                 <Link to="/logout" className='navbar-brand'>Employee LogOut</Link>
-        //             </div>
-        //             <div className="container">
-        //                 <Link to="/customerlogout"
-        //                 className='navbar-brand'>Place order with a new customer</Link>
-        //             </div>
-        //         </nav>
-        //     </header>
-        //     <main>
-        //         <div className='container mt-3'>
-        //             {children}
-        //         </div>
-        //         <ToastContainer/>
-        //     </main>
-            
-        // </div>
     <div>
     <header>
         <div className="container" style={{ backgroundColor: 'white'}}><br />
@@ -52,6 +33,9 @@ function MainLayout({children}) {
             </nav>
             <nav className="navbar-brand">
                 <Link to="/">Main Menu</Link>
+            </nav>
+            <nav className="navbar-brand">
+                <Link to="/editemployee">Edit Employee</Link>
             </nav>
             <nav className="navbar-brand">
                 <Link to="/login">Login</Link>

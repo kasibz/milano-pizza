@@ -3,6 +3,7 @@ import {Link, useNavigate} from 'react-router-dom'
 import MainLayout from '../layouts/MainLayout'
 import axios from 'axios';
 import '../css/HomePage.css';
+import alyssa from "../assets/alyssa.png"
 
 const HomePage = () => {
     const [telephoneID, setTelephoneID] = useState('');
@@ -180,6 +181,9 @@ const HomePage = () => {
                             </select>
                         </div>
                     </div>
+            </div>
+            <div className='bg-light p-5 mt-d rounded-3'>
+                <img src={alyssa}></img>
             </div>
 
         </MainLayout>

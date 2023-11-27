@@ -151,6 +151,13 @@ const POSPage = () => {
         setTotalAmount(newTotalAmount);
     },[cart])
 
+    const loggedInCustomer = JSON.parse(localStorage.getItem('loggedInCustomer'));
+
+    const renderLoggedInCustomer = () => {
+        if (loggedInCustomer) {
+            return <nav className='navbar-brand'>Customer #: {loggedInCustomer.telephoneID}</nav>;
+        } return null;
+    };
 
     return (
         <MainLayout> 
@@ -161,7 +168,9 @@ const POSPage = () => {
                 </div>
                     
             }
-
+            <h2>
+                {renderLoggedInCustomer()}
+            </h2>
             <div>
             <button className='btn btn-primary' onClick={handleAddProduct}>Add Product</button>
             <div className="btn-group">
