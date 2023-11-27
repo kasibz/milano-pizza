@@ -2,7 +2,7 @@ import {useEffect, useState} from 'react';
 import MainLayout from '../layouts/MainLayout';
 import axios from "axios";
 import {toast} from 'react-toastify';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import getCurrentDate from '../helpers/getCurrentDate';
 import convertTimeBackend from '../helpers/convertTimeBackend';
 
@@ -163,7 +163,22 @@ const POSPage = () => {
             }
 
             <div>
-            <button onClick={handleAddProduct}>Add Product</button>
+            <button className='btn btn-primary' onClick={handleAddProduct}>Add Product</button>
+            <div className="btn-group">
+                <button type="button" className="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Edit Product
+                </button>
+                <div className="dropdown-menu">
+                    {
+                        products.map((product, idx) => {
+                            return (
+                                <Link key={idx} className="dropdown-item" to={`/editproduct/${product.id}`}>{product.name}</Link>
+                            )
+                        })
+                    }
+                </div>
+            </div>
+            
             </div>
             <div className='row'>
                 <div className='col-lg-8'>
