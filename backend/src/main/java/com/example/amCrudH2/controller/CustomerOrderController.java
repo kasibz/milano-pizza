@@ -4,7 +4,6 @@ import com.example.amCrudH2.dto.CustomerOrderRequest;
 import com.example.amCrudH2.model.Customer;
 import com.example.amCrudH2.model.CustomerOrder;
 import com.example.amCrudH2.model.Employee;
-import com.example.amCrudH2.model.Product;
 import com.example.amCrudH2.repo.CustomerOrderRepo;
 import com.example.amCrudH2.repo.CustomerRepo;
 import com.example.amCrudH2.repo.EmployeeRepo;
@@ -13,10 +12,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.swing.text.html.Option;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+
 @CrossOrigin("http://localhost:5173")
 
 @RestController
@@ -109,10 +107,6 @@ public class CustomerOrderController {
             if(newCustomerOrder.getCustomerOrderDate() != null)
             {
                 updatedCustomerOrder.setCustomerOrderDate(newCustomerOrder.getCustomerOrderDate());
-            }
-
-            if(newCustomerOrder.getTotalPrice() > 0) {
-                updatedCustomerOrder.setTotalPrice(newCustomerOrder.getTotalPrice());
             }
             //
             CustomerOrder customerOrderObj = customerOrderRepo.save(updatedCustomerOrder);

@@ -1,8 +1,6 @@
 package com.example.amCrudH2.controller;
 
 import com.example.amCrudH2.model.Employee;
-import com.example.amCrudH2.model.Employee;
-//import com.example.amCrudH2.model.Employee;
 import com.example.amCrudH2.repo.EmployeeRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

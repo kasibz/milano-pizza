@@ -10,25 +10,22 @@ import lombok.*;
 @Setter
 @Getter
 @ToString
-public class Product 
-{
+public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    
+
     private String name;
+
     private Double price;
 
     private String image;
 
-
-    public Long getID()
-    {
+    public Long getID() {
         return id;
     }
-    
-    public String getName()
-    {
+
+    public String getName() {
         return name;
     }
 
@@ -40,24 +37,19 @@ public class Product
         this.price = price;
     }
 
-    public Double getPrice()
-    {
+    public Double getPrice() {
         return price;
     }
 
-    public void setPrice(double price)
-    {
+    public void setPrice(double price) {
         this.price = price;
     }
-    
 
-    public String getImage()
-    {
+    public String getImage() {
         return image;
     }
 
-    public void setImage(String image) 
-    {
+    public void setImage(String image) {
         this.image = image;
     }
 }

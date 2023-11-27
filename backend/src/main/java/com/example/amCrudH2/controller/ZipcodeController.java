@@ -1,8 +1,6 @@
 package com.example.amCrudH2.controller;
 
-import com.example.amCrudH2.model.Customer;
 import com.example.amCrudH2.model.Zipcode;
-import com.example.amCrudH2.repo.CustomerRepo;
 import com.example.amCrudH2.repo.ZipcodeRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,8 +18,6 @@ public class ZipcodeController {
 
     @Autowired
     private ZipcodeRepo zipcodeRepo;
-    @Autowired
-    private CustomerRepo customerRepo;
 
     // get all zipcodes
     @GetMapping("/zipcode")

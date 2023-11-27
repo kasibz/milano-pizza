@@ -2,13 +2,12 @@ import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import MainLayout from "../layouts/MainLayout";
-import convertToHumanTime from "../helpers/convertToHumanTime";
+import OrderDetailDisplay from "../components/OrderDetailDisplay";
 
 
 function EmployeeOrderDetailView() {
 
     let {customerOrderID} = useParams()
-    let {employeeID} = useParams()
 
     const [orderDetail, setOrderDetail] = useState([])
 
@@ -28,19 +27,10 @@ function EmployeeOrderDetailView() {
     return (
         <MainLayout>
             <div>
-                This has the items in the cart for the customer Order {customerOrderID} that is also under employee {employeeID}
-            </div>
-            {
-                orderDetail.map((item, idx) => {
-                    return (
-                        <div key={idx}>
-                            <p>{item.productName} | {item.quantity} * {item.subTotal / item.quantity} | Discount: {item.discount} | {convertToHumanTime(item.orderDate)}</p>
-                        </div>
-                    )
-                })
-            }
-            <hr />
-            <p>Total: ${totalSum}</p>
+                Customer Order ID: {customerOrderID}
+            </div><hr />
+            <OrderDetailDisplay orderDetails={orderDetail}/>
+            <h4><strong>Total: ${totalSum.toFixed(2)}</strong></h4>
         </MainLayout>
     );
 }
