@@ -71,6 +71,10 @@ public class ProductController {
                 updatedProduct.setPrice(newProduct.getPrice());
             }
 
+            if(newProduct.getDiscount() != null) {
+                updatedProduct.setDiscount(newProduct.getDiscount());
+            }
+
             if(newProduct.getName() != null) {
                 updatedProduct.setName(newProduct.getName());
             }

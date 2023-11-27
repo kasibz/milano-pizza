@@ -18,6 +18,7 @@ public class Product {
     private String name;
 
     private Double price;
+    private Long discount;
 
     private String image;
 
@@ -27,6 +28,14 @@ public class Product {
 
     public String getName() {
         return name;
+    }
+
+    public Long getDiscount() {
+        return discount;
+    }
+
+    public void setDiscount(Long discount) {
+        this.discount = discount;
     }
 
     public void setName(String name) {
