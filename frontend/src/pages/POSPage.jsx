@@ -141,7 +141,6 @@ const POSPage = () => {
     const handleAddProduct = () => {
         navigate('/addProduct')
     }
-    
 
     useEffect(() => {
         let newTotalAmount = 0;
@@ -152,14 +151,13 @@ const POSPage = () => {
     },[cart])
 
 
-
     return (
         <MainLayout> 
             {
-                    success && 
-                    <div className="alert alert-success" role="alert">
-                        Order Created!
-                    </div>
+                success && 
+                <div className="alert alert-success" role="alert">
+                    Order Created!
+                </div>
                     
             }
 
@@ -194,6 +192,7 @@ const POSPage = () => {
                                     <td>Name</td>
                                     <td>Price</td>
                                     <td>Qty</td>
+                                    <td>Discount</td>
                                     <td>Total</td>
                                     <td>Action</td>
                                 </tr>
@@ -205,6 +204,7 @@ const POSPage = () => {
                                     <td>{cartProduct.name}</td>
                                     <td>${cartProduct.price.toFixed(2)}</td>
                                     <td>{cartProduct.quantity}</td>
+                                    <td>25%</td>
                                     <td>${cartProduct.totalAmount.toFixed(2)}</td>
                                     <td>
                                         <button className='btn btn-danger btn-sm' onClick={() => removeProduct(cartProduct)}>Remove</button>
