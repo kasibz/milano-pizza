@@ -5,13 +5,13 @@ import 'react-toastify/dist/ReactToastify.css';
 
 
 function MainLayout({children}) {
-    const loggedInEmployee = JSON.parse(localStorage.getItem('loggedInEmployee'));
+    // const loggedInEmployee = JSON.parse(localStorage.getItem('loggedInEmployee'));
 
-    const renderLoggedInEmployee = () => {
-        if (loggedInEmployee) {
-            return <nav className='navbar-brand'>Hello, {loggedInEmployee.firstName}</nav>;
-        } return null;
-    };
+    // const renderLoggedInEmployee = () => {
+    //     if (loggedInEmployee) {
+    //         return <nav className='navbar-brand'>Hello, {loggedInEmployee.firstName}</nav>;
+    //     } return null;
+    // };
 
     const [employee, setEmployee] = useState(false)
 
@@ -46,7 +46,6 @@ function MainLayout({children}) {
             <nav className="navbar-brand">
                 <Link to="/customerlogout">Place order with a new customer</Link>
             </nav>
-            {renderLoggedInEmployee()}
         </nav>
         </div>
     </header>
