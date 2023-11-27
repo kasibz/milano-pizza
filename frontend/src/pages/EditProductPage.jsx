@@ -27,7 +27,7 @@ function EditProductPage() {
       const handleUpdateProduct = async () => {
         if (selectedProduct) {
           try {
-            await axios.put(`http://localhost:8080/product/${selectedProduct.id}`, {
+            await axios.post(`http://localhost:8080/product/${selectedProduct.id}`, {
               name: selectedProduct.name,
               price: selectedProduct.price,
               discount: selectedProduct.discount,
