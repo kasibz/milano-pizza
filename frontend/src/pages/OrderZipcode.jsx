@@ -39,24 +39,50 @@ function OrderZipcode() {
             <div>
                 <h2>Orders by {zipcodeID}</h2>
                 {
-                Array.from(orders.entries()).map(([weekNum, weekList]) => (
-                    <div key={weekNum}>
-                        <h2>Week {weekNum}</h2>
-                        {
-                            weekList.map(item => (
-                                <div key={item.id}>
+                    Array.from(orders.entries()).map(([year, yearData]) => (
+                            <div key={year} >
+                                <p>
+                                    <a className="btn btn-primary" data-bs-toggle="collapse" href="#yearCollapse" role="button" aria-expanded="false" aria-controls="collapseExample">
+                                        <h4>{year}</h4>
+                                    </a>
+                                </p>
+                            {Object.entries(yearData).map(([weekNum, weekList]) => (
+                                <div key={weekNum} id='yearCollapse'>
+                                    <button className="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                                        {weekNum}
+                                    </button>
+                                {weekList.map(item => (
+                                    <div key={item.id}>
+
+                                    <div className="collapse" id="collapseExample">
+                                    <div className="card card-body">
                                     <Link to={`/orderbyzipcode/${zipcodeID}/orderDetail/${item.id}`}>
-                                        <p>{convertToHumanTime(item.customerOrderDate)} Employee: {item.employeeFirstName} | Customer Telephone {item.telephoneID}</p>
+                                    {convertToHumanTime(item.customerOrderDate)} Employee: {item.employeeFirstName} | Customer Telephone {item.telephoneID}
                                     </Link>
-                                    
+                                    </div>
                                 </div>
-                            ))
-                        }
-                    </div>
-                ))
+                                    </div>
+                                ))}
+                                </div>
+                            ))}
+                            </div>
+                        ))
+                    // Array.from(orders.entries()).map(([weekNum, weekList]) => (
+                    //     <div key={weekNum}>
+                    //         <h2>Week {weekNum}</h2>
+                    //         {
+                    //             weekList.map(item => (
+                    //                 <div key={item.id}>
+                    //                     <Link to={`/orderbyzipcode/${zipcodeID}/orderDetail/${item.id}`}>
+                    //                         <p>{convertToHumanTime(item.customerOrderDate)} Employee: {item.employeeFirstName} | Customer Telephone {item.telephoneID}</p>
+                    //                     </Link>
+                                        
+                    //                 </div>
+                    //             ))
+                    //         }
+                    //     </div>
+                    // ))
                 }
-                Hi its the zipcode page
-                
             </div>
         </MainLayout>
     );
