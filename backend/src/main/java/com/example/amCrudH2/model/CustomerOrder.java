@@ -30,20 +30,10 @@ public class CustomerOrder {
     @JsonBackReference
     private Employee employee;
     @Column(nullable = true)
-    private double totalPrice;
-    @Column(nullable = true)
     private LocalDateTime customerOrderDate;
 
     public Long getId() {
         return id;
-    }
-
-    public double getTotalPrice() {
-        return totalPrice;
-    }
-
-    public void setTotalPrice(double totalPrice) {
-        this.totalPrice = totalPrice;
     }
 
     public LocalDateTime getCustomerOrderDate() {
