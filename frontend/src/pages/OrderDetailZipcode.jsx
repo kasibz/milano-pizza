@@ -2,13 +2,12 @@ import { useParams } from "react-router-dom";
 import MainLayout from "../layouts/MainLayout";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import convertToHumanTime from "../helpers/convertToHumanTime";
+import OrderDetailDisplay from "../components/OrderDetailDisplay";
 
 
 function OrderDetailZipcode() {
 
     const {customerOrderID} = useParams()
-    const {zipcodeID} = useParams()
 
     const [orderDetail, setOrderDetail] = useState([])
 
@@ -30,18 +29,10 @@ function OrderDetailZipcode() {
     return (
         <MainLayout>
             <div>
-                This has the items in the cart for the customer Order {customerOrderID} that is also under {zipcodeID}
+                Customer Order ID: {customerOrderID}
             </div>
-            {
-                orderDetail.map((item, idx) => {
-                    return (
-                        <div key={idx}>
-                            <p>{item.productName} | {item.quantity} * {item.subTotal / item.quantity} | Discount: {item.discount} | {convertToHumanTime(item.orderDate)}</p>
-                        </div>
-                    )
-                })
-            }
-        <p>Total: ${totalSum}</p>
+            <OrderDetailDisplay orderDetails={orderDetail}/>
+            <h4><strong>Total: ${totalSum}</strong></h4>
         </MainLayout>
     );
 }

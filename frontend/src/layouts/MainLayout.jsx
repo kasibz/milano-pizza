@@ -1,10 +1,17 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {Link} from 'react-router-dom'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
 
 
 function MainLayout({children}) {
+
+    const [employee, setEmployee] = useState(false)
+
+    useEffect(() => {
+        let currentEmployee = JSON.parse(localStorage.getItem("loggedInEmployee"))
+        setEmployee(currentEmployee)
+    }, [])
 
     return (
         // <div>
@@ -35,7 +42,8 @@ function MainLayout({children}) {
         // </div>
     <div>
     <header>
-        <div className="container" style={{ backgroundColor: 'white'}}>
+        <div className="container" style={{ backgroundColor: 'white'}}><br />
+            {employee ?  "Logged in as: " + employee.firstName + " " + employee.lastName : "Employee login needed to create orders"}
         <nav className="navbar navbar-expand-lg bg-light navbar-light" >
             <nav className="navbar-brand ">
                 <Link className="navbar-brand">

@@ -114,8 +114,7 @@ const POSPage = () => {
             })
             // call the 3rd api to edit the first customer order and add the total and current date
             .then((secondResponse) => {axios.post(`http://localhost:8080/customerOrder/${response.data.id}`, {
-                    "customerOrderDate": currDate,
-                    "totalPrice": cartTotal
+                    "customerOrderDate": currDate
                     // handle third response
                 }).then((thirdResponse) => {
                     console.log(thirdResponse.data)
