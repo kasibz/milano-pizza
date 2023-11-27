@@ -76,80 +76,72 @@ const HomePage = () => {
     
     return (
         <MainLayout>
-            <div className=''>
-            <div className='bg-light p-5 mt-4 rounded-3'>
-                <h1>Welcome to Alyssa Milano's Pizzaria POS system</h1>
-                <p></p>
+            <div className='bg-image'>
+                <div className='text dark p-5 mt-4 rounded-3'>
+                    <h1>Welcome to Alyssa Milano's Pizzaria POS system</h1>
+                    <p></p>
+                    <Link to='/EmployeeOrderDetail' className='btn btn-primary'>Orders By Employee</Link>
 
-                <Link to='/pos' className='btn btn-primary'>Click to start the POS system</Link>
-                <Link to='/EmployeeOrderDetail' className='btn btn-primary'>Orders By Employee</Link>
-
-                <br /><br />
-                {/* {
-                    zipcodes.map((zipcodeID, idx) => {
-                        return (
-                        < Link key={idx} to={`/orderbyzipcode/${zipcodeID}`} className='btn btn-primary'>Orders By {zipcodeID}</Link>
-                    )
-                    })
-                } */}
-                <label className='dropdown'>View Orders by ZipCode</label>
-                <select 
-                    id='lookUpByZip' 
-                    value={lookUpByZip} 
-                    onChange={handleZipCodeLookUp}
-                    type="text"
-                    >
-                <option value="">Select...</option>
-                {zipcodes.map((zipcodeID, idx) => (
-                    <option key={idx} value={zipcodeID}>
-                    Orders By {zipcodeID}
-                    </option>
-                ))}
-                </select>
-            </div>
-            <div className="">
-                <div className="shadow p-4 mt-4">
-                    <h2>New Customer</h2>
-                    <form onSubmit={handleNewCustomer}>
-                        <div className="form-floating mb-3">
-                            <input
-                            id="telephoneID"
-                            name="telephoneID"
-                            placeholder="Enter Phone Number"
-                            value={telephoneID}
-                            onChange={(e) => setTelephoneID(e.target.value)}
-                            type="text"
-                            />
-                        </div>
-                        <div className="form-floating mb-3">
-                            <input 
-                            id="address"
-                            name="address"
-                            placeholder="Enter address"
-                            value={address}
-                            onChange={(e) => setAddress(e.target.value)}
-                            type="text"
-                            />
-                        </div>
-                        <label className='dropdown'>Select Zip Code</label>
-                            <select 
-                            id='zip_code' 
-                            value={zip_code} 
-                            onChange={(e) => setZip_Code(e.target.value)}
-                            type="text"
-                            >
-                            <option value="">Select...</option>
-                            {zipcodes.map((zipcode) => (
-                                <option key={zipcode} value={zipcode}>
-                                    {zipcode}
-                                </option>
-                            ))}
-                            </select>
-                            <br></br>
-                        <input className="btn btn-primary" type="submit" />
-                    </form>
+                    <br /><br />
+                    
+                    <label className='dropdown'>View Orders by ZipCode</label>
+                    <select 
+                        id='lookUpByZip' 
+                        value={lookUpByZip} 
+                        onChange={handleZipCodeLookUp}
+                        type="text"
+                        >
+                    <option value="">Select...</option>
+                    {zipcodes.map((zipcodeID, idx) => (
+                        <option key={idx} value={zipcodeID}>
+                        Orders By {zipcodeID}
+                        </option>
+                    ))}
+                    </select>
                 </div>
-            </div>
+                <div>
+                    <div className="text-dark p-5 mt-4 rounded-3">
+                        <h2>New Customer</h2>
+                        <form onSubmit={handleNewCustomer}>
+                            <div className="form-floating mb-3">
+                                <input
+                                id="telephoneID"
+                                name="telephoneID"
+                                placeholder="Enter Phone Number"
+                                value={telephoneID}
+                                onChange={(e) => setTelephoneID(e.target.value)}
+                                type="text"
+                                />
+                            </div>
+                            <div className="form-floating mb-3">
+                                <input 
+                                id="address"
+                                name="address"
+                                placeholder="Enter address"
+                                value={address}
+                                onChange={(e) => setAddress(e.target.value)}
+                                type="text"
+                                />
+                            </div>
+                            <label className='dropdown'>Select Zip Code</label>
+                                <select 
+                                id='zip_code' 
+                                value={zip_code} 
+                                onChange={(e) => setZip_Code(e.target.value)}
+                                type="text"
+                                >
+                                <option value="">Select...</option>
+                                {zipcodes.map((zipcode) => (
+                                    <option key={zipcode} value={zipcode}>
+                                        {zipcode}
+                                    </option>
+                                ))}
+                                </select>
+                                <br></br>
+                            <input className="btn btn-primary" type="submit" />
+                        </form>
+                    </div>
+                </div>
             </div>
         </MainLayout>
     
