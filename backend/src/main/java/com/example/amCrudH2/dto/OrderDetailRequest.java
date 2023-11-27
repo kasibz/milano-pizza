@@ -8,7 +8,7 @@ public class OrderDetailRequest {
     private Long product_id;
     private LocalDateTime orderDate;
     private Long quantity;
-    private Double discount;
+    private Long discount;
     private Double subTotal;
 
     public Long getId() {
@@ -31,7 +31,7 @@ public class OrderDetailRequest {
         return quantity;
     }
 
-    public Double getDiscount() {
+    public Long getDiscount() {
         return discount;
     }
 

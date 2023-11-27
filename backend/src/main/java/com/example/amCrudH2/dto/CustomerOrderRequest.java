@@ -16,7 +16,6 @@ public class CustomerOrderRequest {
     private Long telephone_id;
     private Long employee_id;
     private LocalDateTime customerOrderDate;
-    private Double totalPrice;
 
 
     public Long getId() {
@@ -25,10 +24,6 @@ public class CustomerOrderRequest {
 
     public LocalDateTime getCustomerOrderDate() {
         return customerOrderDate;
-    }
-
-    public Double getTotalPrice() {
-        return totalPrice;
     }
 
     public Long getTelephone_id() {

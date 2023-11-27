@@ -11,6 +11,10 @@ import OrderDetailZipcode from './pages/OrderDetailZipcode';
 import CustomerLogOut from './pages/CustomerLogOut';
 import EmployeeOrderDetailView from './pages/EmployeeOrderDetailView';
 import CustomerLookup from './pages/CustomerLookup';
+import EditEmployee from './pages/EditEmployee';
+import ProductPriceHistory from './pages/ProductPriceHistory';
+import EditProductPage from './pages/EditProductPage';
+import "./App.css"
 
 
 function App() {
@@ -29,7 +33,10 @@ function App() {
           <Route path='/employeeorderdetail' element = { <EmployeeOrderDetail/> } />
           <Route path='/employeeorderdetail/orderDetail/:employeeID/:customerOrderID' element = { <EmployeeOrderDetailView/> } />
           <Route path='/orderbyzipcode/:zipcodeID/orderDetail/:customerOrderID' element = { <OrderDetailZipcode/> } />
+          <Route path='/pricehistory/:productID' element = { <ProductPriceHistory/> } />
+          <Route path='/editproduct/:productID' element = { <EditProductPage/> } />
           <Route path='/customerlogout' element = { <CustomerLogOut/> } />
+          <Route path='/editemployee' element = { <EditEmployee/> } />
         </Routes>
       </Router>
     </>
