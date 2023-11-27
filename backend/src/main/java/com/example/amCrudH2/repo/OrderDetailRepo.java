@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 public interface OrderDetailRepo extends JpaRepository<OrderDetail, Long> {
@@ -14,7 +15,7 @@ public interface OrderDetailRepo extends JpaRepository<OrderDetail, Long> {
         Long getID();
         Long getCustomerOrderID();
         Long getProductID();
-        LocalDate getOrderDate();
+        LocalDateTime getOrderDate();
         Long getQuantity();
         Double getDiscount();
         Double getSubTotal();
@@ -27,4 +28,7 @@ public interface OrderDetailRepo extends JpaRepository<OrderDetail, Long> {
 
     @Query("SELECT od.ID as ID, od.customerOrder.ID as customerOrderID, od.product.ID as productID, od.product.name as productName, od.orderDate as orderDate, od.quantity as quantity, od.discount as discount, od.subTotal as subTotal FROM OrderDetail od WHERE od.product.ID = :productId")
     List<OrderDetailWithAssociations> findOrderDetailByProductIdWithAssociations(@Param("productId") Long Id);
+
+    @Query("SELECT od.ID as ID, od.customerOrder.ID as customerOrderID, od.product.ID as productID, od.product.name as productName, od.orderDate as orderDate, od.quantity as quantity, od.discount as discount, od.subTotal as subTotal FROM OrderDetail od WHERE od.customerOrder.customer.zipcode.zipcodeID = :zipcodeId ORDER BY od.orderDate")
+    List<OrderDetailWithAssociations> findOrderDetailByZipcodeWithAssociations(@Param("zipcodeId") Long Id);
 }

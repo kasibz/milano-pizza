@@ -1,12 +1,13 @@
 package com.example.amCrudH2.dto;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public class OrderDetailRequest {
     private Long id;
     private Long customerOrder_id;
     private Long product_id;
-    private LocalDate orderDate;
+    private LocalDateTime orderDate;
     private Long quantity;
     private Double discount;
     private Double subTotal;
@@ -23,7 +24,7 @@ public class OrderDetailRequest {
         return product_id;
     }
 
-    public LocalDate getOrderDate() {
+    public LocalDateTime getOrderDate() {
         return orderDate;
     }
 

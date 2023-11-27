@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
+@CrossOrigin("http://localhost:5173")
+
 @RestController
 public class OrderDetailController {
     @Autowired
@@ -38,6 +40,15 @@ public class OrderDetailController {
     @GetMapping("product/{id}/orderDetail")
     public ResponseEntity<List<OrderDetailRepo.OrderDetailWithAssociations>> getOrderDetailByProductId(@PathVariable Long id) {
         List<OrderDetailRepo.OrderDetailWithAssociations> orderDetailData = orderDetailRepo.findOrderDetailByProductIdWithAssociations(id);
+        if (orderDetailData.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(orderDetailData, HttpStatus.OK);
+    }
+
+    @GetMapping("zipcode/{id}/orderDetail")
+    public ResponseEntity<List<OrderDetailRepo.OrderDetailWithAssociations>> getOrderDetailByZipcode(@PathVariable Long id) {
+        List<OrderDetailRepo.OrderDetailWithAssociations> orderDetailData = orderDetailRepo.findOrderDetailByZipcodeWithAssociations(id);
         if (orderDetailData.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
