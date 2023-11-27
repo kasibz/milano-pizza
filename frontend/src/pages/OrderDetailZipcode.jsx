@@ -12,7 +12,7 @@ function OrderDetailZipcode() {
     const [orderDetail, setOrderDetail] = useState([])
 
       // Calculate the total sum of subTotals
-    const totalSum = orderDetail.reduce((sum, item) => sum + item.subTotal + (item.discount * item.subTotal), 0);
+      const totalSum = orderDetail.reduce((sum, item) => sum + item.subTotal - (item.discount / 100 * item.subTotal), 0);
 
     useEffect(() => {
         axios.get(`http://localhost:8080/customerOrder/${customerOrderID}/orderDetail`)

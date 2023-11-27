@@ -19,3 +19,23 @@
   display: flex;
   justify-content: space-around;
 }
+
+.discount-input {
+  width: 2.5rem;
+}
+
+.col-lg-4 {
+  width: 250px;
+}
+
+.col-lg-4-cart {
+  width: 500px;
+}
+
+.col-lg-8{
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  width: 600px;
+}

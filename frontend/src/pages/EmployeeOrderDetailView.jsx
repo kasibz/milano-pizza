@@ -22,7 +22,7 @@ function EmployeeOrderDetailView() {
     }, [])
 
       // Calculate the total sum of subTotals
-      const totalSum = orderDetail.reduce((sum, item) => sum + item.subTotal + (item.discount * item.subTotal), 0);
+      const totalSum = orderDetail.reduce((sum, item) => sum + item.subTotal - (item.discount / 100 * item.subTotal), 0);
 
     return (
         <MainLayout>

@@ -2,7 +2,7 @@ import {useEffect, useState} from 'react';
 import MainLayout from '../layouts/MainLayout';
 import axios from "axios";
 import {toast} from 'react-toastify';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import getCurrentDate from '../helpers/getCurrentDate';
 import convertTimeBackend from '../helpers/convertTimeBackend';
 
@@ -107,7 +107,7 @@ const POSPage = () => {
                 "product_id": cartItem.id,
                 "orderDate": currDate,
                 "quantity": cartItem.quantity,
-                "discount": 0,
+                "discount": cartItem.discount,
                 "subTotal": cartItem.totalAmount
             })
             // call the 3rd api to edit the first customer order and add the total and current date
@@ -141,12 +141,12 @@ const POSPage = () => {
     const handleAddProduct = () => {
         navigate('/addProduct')
     }
-    
 
     useEffect(() => {
         let newTotalAmount = 0;
         cart.forEach(icart => {
-            newTotalAmount = newTotalAmount + parseFloat(icart.price * icart.quantity);
+            // I'll calculate total here
+            newTotalAmount = newTotalAmount + parseFloat((icart.price - (icart.price * icart.discount / 100)) * icart.quantity);
         })
         setTotalAmount(newTotalAmount);
     },[cart])
@@ -162,17 +162,32 @@ const POSPage = () => {
     return (
         <MainLayout> 
             {
-                    success && 
-                    <div className="alert alert-success" role="alert">
-                        Order Created!
-                    </div>
+                success && 
+                <div className="alert alert-success" role="alert">
+                    Order Created!
+                </div>
                     
             }
             <h2>
                 {renderLoggedInCustomer()}
             </h2>
             <div>
-            <button onClick={handleAddProduct}>Add Product</button>
+            <button className='btn btn-primary' onClick={handleAddProduct}>Add Product</button>
+            <div className="btn-group">
+                <button type="button" className="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Edit Product
+                </button>
+                <div className="dropdown-menu">
+                    {
+                        products.map((product, idx) => {
+                            return (
+                                <Link key={idx} className="dropdown-item" to={`/editproduct/${product.id}`}>{product.name}</Link>
+                            )
+                        })
+                    }
+                </div>
+            </div>
+            
             </div>
             <div className='row'>
                 <div className='col-lg-8'>
@@ -193,7 +208,7 @@ const POSPage = () => {
                     ))}
                     </div>
                 </div>
-                <div className='col-lg-4'>
+                <div className='col-lg-4-cart'>
                     <div className='table-responsive bg-dark'>
                         <table className='table table-responsive table-dark table-hover'>
                             <thead>
@@ -202,6 +217,7 @@ const POSPage = () => {
                                     <td>Name</td>
                                     <td>Price</td>
                                     <td>Qty</td>
+                                    <td>Discount</td>
                                     <td>Total</td>
                                     <td>Action</td>
                                 </tr>
@@ -213,7 +229,8 @@ const POSPage = () => {
                                     <td>{cartProduct.name}</td>
                                     <td>${cartProduct.price.toFixed(2)}</td>
                                     <td>{cartProduct.quantity}</td>
-                                    <td>${cartProduct.totalAmount.toFixed(2)}</td>
+                                    <td>{cartProduct.discount}%</td>
+                                    <td>${((cartProduct.totalAmount) - (cartProduct.totalAmount * (cartProduct.discount / 100))).toFixed(2)}</td>
                                     <td>
                                         <button className='btn btn-danger btn-sm' onClick={() => removeProduct(cartProduct)}>Remove</button>
                                     </td>
