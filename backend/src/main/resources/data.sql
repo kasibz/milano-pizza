@@ -34,4 +34,10 @@ VALUES ('Kasib', 'Abdullah', 1),
 ('John', 'Suero', 1),
 ('Alyssa', 'Ramroop', 0);
 
-INSERT INTO CUSTOMER_ORDER ()
+--Has to link on existing telephone and employee id, this makes a new order but
+-- needs order details (an item and quantity)
+INSERT INTO CUSTOMER_ORDER (TELEPHONE_ID, EMPLOYEE_ID, CUSTOMER_ORDER_DATE)
+VALUES (915777987, 1, '2023-11-25T11:30:00'),
+(915777987, 1, '2020-09-12T08:07:53');
+
+INSERT INTO ORDER_DETAIL ()
