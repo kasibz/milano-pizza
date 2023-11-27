@@ -97,13 +97,11 @@ const POSPage = () => {
           telephone_id: customerID,
           employee_id: employeeID,
         };
-        let cartTotal = 0
         axios.post(url, postData)
         // in the response is when you call the second post request but it needs to loop through everything in the cart
         
         .then((response) => {cart.forEach((cartItem) => {
             let currDate = convertTimeBackend(getCurrentDate())
-            cartTotal += cartItem.totalAmount * cartItem.discount // <- this goes into the next call for total 
             axios.post(`http://localhost:8080/customerOrder/${response.data.id}/orderDetail`, {
                 "customerOrder_id": response.data.id,
                 "product_id": cartItem.id,
@@ -172,6 +170,7 @@ const POSPage = () => {
                 <div className='col-lg-8'>
                     <div className='row'>
                     {products.map((product, key) => (
+
                         <div key={key} className='col-lg-4 mb-4'>
                             <div className='pos-item px-3 text-center border' 
                             onClick={() => addProductToCart(product)}>
@@ -179,7 +178,7 @@ const POSPage = () => {
                                 <img className='img-fluid' 
                                 src={product.image} alt={product.productID} 
                                 style={{ height:'200px', width:'200px'}}/>
-                                <p>${product.price}</p>
+                                <p>${product.price.toFixed(2)}</p>
                             </div>
                         </div>  
                 
@@ -204,9 +203,9 @@ const POSPage = () => {
                                 <tr key={key}>
                                     <td>{cartProduct.id}</td>
                                     <td>{cartProduct.name}</td>
-                                    <td>{cartProduct.price}</td>
+                                    <td>${cartProduct.price.toFixed(2)}</td>
                                     <td>{cartProduct.quantity}</td>
-                                    <td>{cartProduct.totalAmount}</td>
+                                    <td>${cartProduct.totalAmount.toFixed(2)}</td>
                                     <td>
                                         <button className='btn btn-danger btn-sm' onClick={() => removeProduct(cartProduct)}>Remove</button>
                                     </td>
@@ -214,7 +213,7 @@ const POSPage = () => {
                                     : 'No Item in Cart'}
                             </tbody>
                         </table>
-                        <h2 className='px-2 text-white'>Total Amount: ${totalAmount}</h2>
+                        <h2 className='px-2 text-white'>Total Amount: ${totalAmount.toFixed(2)}</h2>
                     </div>
 
                     <div className='mt-3'>

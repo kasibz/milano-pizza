@@ -1,6 +1,6 @@
 import convertToHumanTime from '../helpers/convertToHumanTime';
 
-function OrderDetailDisplay({orderDetails}) {
+function ProductHistoryTable({orderDetails}) {
 
     return (
         <> 
@@ -9,9 +9,7 @@ function OrderDetailDisplay({orderDetails}) {
                     <tr>
                         <th scope="col">#</th>
                         <th scope="col">Product Description</th>
-                        <th scope="col">Quantity</th>
                         <th scope="col">Item Price</th>
-                        <th scope="col">Discount</th>
                         <th scope="col">Date/Time</th>
                     </tr>
                 </thead>
@@ -25,9 +23,7 @@ function OrderDetailDisplay({orderDetails}) {
                     <tr key={idx}>
                         <th scope="row">{item.id}</th>
                         <td>{item.productName}</td>
-                        <td>{item.quantity}</td>
                         <td>${(item.subTotal / item.quantity).toFixed(2)} </td>
-                        <td>{item.discount} </td>
                         <td>{convertToHumanTime(item.orderDate)}</td>
                     </tr>
                 )
@@ -43,4 +39,4 @@ function OrderDetailDisplay({orderDetails}) {
     );
 }
 
-export default OrderDetailDisplay;
+export default ProductHistoryTable;

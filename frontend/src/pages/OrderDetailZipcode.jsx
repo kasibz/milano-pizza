@@ -32,7 +32,7 @@ function OrderDetailZipcode() {
                 Customer Order ID: {customerOrderID}
             </div>
             <OrderDetailDisplay orderDetails={orderDetail}/>
-            <h4><strong>Total: ${totalSum}</strong></h4>
+            <h4><strong>Total: ${totalSum.toFixed(2)}</strong></h4>
         </MainLayout>
     );
 }
