@@ -108,10 +108,6 @@ public class CustomerOrderController {
             {
                 updatedCustomerOrder.setCustomerOrderDate(newCustomerOrder.getCustomerOrderDate());
             }
-
-            if(newCustomerOrder.getTotalPrice() > 0) {
-                updatedCustomerOrder.setTotalPrice(newCustomerOrder.getTotalPrice());
-            }
             //
             CustomerOrder customerOrderObj = customerOrderRepo.save(updatedCustomerOrder);
             return new ResponseEntity<>(customerOrderObj, HttpStatus.OK);
