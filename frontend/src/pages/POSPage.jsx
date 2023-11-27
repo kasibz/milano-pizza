@@ -107,7 +107,7 @@ const POSPage = () => {
                 "product_id": cartItem.id,
                 "orderDate": currDate,
                 "quantity": cartItem.quantity,
-                "discount": 0,
+                "discount": cartItem.discount,
                 "subTotal": cartItem.totalAmount
             })
             // call the 3rd api to edit the first customer order and add the total and current date
@@ -145,7 +145,8 @@ const POSPage = () => {
     useEffect(() => {
         let newTotalAmount = 0;
         cart.forEach(icart => {
-            newTotalAmount = newTotalAmount + parseFloat(icart.price * icart.quantity);
+            // I'll calculate total here
+            newTotalAmount = newTotalAmount + parseFloat((icart.price - (icart.price * icart.discount / 100)) * icart.quantity);
         })
         setTotalAmount(newTotalAmount);
     },[cart])
@@ -183,7 +184,7 @@ const POSPage = () => {
                     ))}
                     </div>
                 </div>
-                <div className='col-lg-4'>
+                <div className='col-lg-4-cart'>
                     <div className='table-responsive bg-dark'>
                         <table className='table table-responsive table-dark table-hover'>
                             <thead>
@@ -204,8 +205,8 @@ const POSPage = () => {
                                     <td>{cartProduct.name}</td>
                                     <td>${cartProduct.price.toFixed(2)}</td>
                                     <td>{cartProduct.quantity}</td>
-                                    <td>25%</td>
-                                    <td>${cartProduct.totalAmount.toFixed(2)}</td>
+                                    <td>{cartProduct.discount}%</td>
+                                    <td>${((cartProduct.totalAmount) - (cartProduct.totalAmount * (cartProduct.discount / 100))).toFixed(2)}</td>
                                     <td>
                                         <button className='btn btn-danger btn-sm' onClick={() => removeProduct(cartProduct)}>Remove</button>
                                     </td>
