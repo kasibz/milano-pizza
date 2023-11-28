@@ -138,8 +138,8 @@ const POSPage = () => {
 
     }
 
-    const handleAddProduct = () => {
-        navigate('/addProduct')
+    const handleEditProduct = () => {
+        navigate('/editproduct')
     }
 
     useEffect(() => {
@@ -172,11 +172,9 @@ const POSPage = () => {
                 {renderLoggedInCustomer()}
             </h2>
             <div>
-            <button className='btn btn-primary' onClick={handleAddProduct}>Add Product</button>
+            <button className='btn btn-primary' onClick={handleEditProduct}>Edit Product</button>
             <div className="btn-group">
-                <button type="button" className="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Edit Product
-                </button>
+                
                 <div className="dropdown-menu">
                     {
                         products.map((product, idx) => {

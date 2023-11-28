@@ -114,6 +114,7 @@ const HomePage = () => {
                                     value={telephoneID}
                                     onChange={(e) => setTelephoneID(e.target.value)}
                                     type="text"
+                                    maxLength="10"
                                     />
                                 </div>
                                 <div className="form-floating mb-3">
