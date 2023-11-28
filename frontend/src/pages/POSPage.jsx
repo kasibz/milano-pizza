@@ -203,7 +203,17 @@ const POSPage = () => {
                                 <img className='img-fluid' 
                                 src={product.image} alt={product.productID} 
                                 style={{ height:'200px', width:'200px'}}/>
-                                <p><strong>${product.price.toFixed(2)}</strong></p>
+                                <p>
+                                    {
+                                        product.discount > 0 
+                                        ? <p>
+                                            <s>${product.price.toFixed(2)}</s>
+                                            {<strong><span>  ${(product.price - product.discount / 100 * product.price).toFixed(2)}</span></strong>}
+                                         </p> 
+                                        : <span><strong>${product.price.toFixed(2)}</strong></span>
+                                    }
+                                        {/* ${product.price.toFixed(2)} */}
+                                </p>
                                 {
                                     product.discount > 0 
                                     ? <span className="badge bg-success">{product.discount}% Discount!</span> 
