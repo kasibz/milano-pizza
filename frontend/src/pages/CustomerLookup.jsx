@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Axios from 'axios';
 import MainLayout from '../layouts/MainLayout';
-import {Navigate, useNavigate} from 'react-router-dom'
+import {Link, useNavigate} from 'react-router-dom'
 
 const CustomerLookup = () => {
     const [telephoneID, setTelephoneID] = useState('');
@@ -9,8 +9,8 @@ const CustomerLookup = () => {
     const [customerOrderID, setCustomerOrderID] = useState('');
     const [customerOrders, setCustomerOrders] = useState([]);
     const [orderDetails, setOrderDetails] = useState([]);
-    var OrderID;
 
+    const navigate = useNavigate();
     const url = `http://localhost:8080/customer/${telephoneID}/customerOrder`
 
     const fetchCustomerOrders = async (event) => {
@@ -35,6 +35,8 @@ const CustomerLookup = () => {
         {
             const response = await Axios.get(`http://localhost:8080/customer/${telephoneID}`)
             setCustomer(response.data);
+            console.log("customer saved")
+            localStorage.setItem("loggedInCustomer", JSON.stringify(customer))
         }
 
     }
@@ -89,9 +91,10 @@ const CustomerLookup = () => {
             </form>
         </div>
         </div>
-        <div className="offset-3 col-6">
+        <div className="offset-2 col-8">
         <div className="shadow p-4 mt-4">
             <h2>Orders</h2>
+            <Link to='/pos' className='btn btn-primary'>New Order</Link>
             {customerOrders.map((order) => (
             <ul key= {order.id}>
                 <h3>Customer Order {order.id}</h3>
