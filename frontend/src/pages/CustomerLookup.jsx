@@ -99,7 +99,7 @@ const CustomerLookup = () => {
                     orderList.filter(item=>item.customerOrderID === order.id).map((order, index) => {
                         return (
                             <li key={index}>
-                                    Product: {order.productName} | Quantity: {order.quantity} | Price: {order.subTotal}
+                                    Product: {order.productName} | Quantity: {order.quantity} | Price: ${order.subTotal.toFixed(2)}
                             </li>
                         )
                     })

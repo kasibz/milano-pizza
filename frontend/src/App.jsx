@@ -34,7 +34,7 @@ function App() {
           <Route path='/employeeorderdetail/orderDetail/:employeeID/:customerOrderID' element = { <EmployeeOrderDetailView/> } />
           <Route path='/orderbyzipcode/:zipcodeID/orderDetail/:customerOrderID' element = { <OrderDetailZipcode/> } />
           <Route path='/pricehistory/:productID' element = { <ProductPriceHistory/> } />
-          <Route path='/editproduct/:productID' element = { <EditProductPage/> } />
+          <Route path='/editproduct' element = { <EditProductPage/> } />
           <Route path='/customerlogout' element = { <CustomerLogOut/> } />
           <Route path='/editemployee' element = { <EditEmployee/> } />
         </Routes>

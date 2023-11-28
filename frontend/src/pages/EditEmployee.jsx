@@ -66,7 +66,7 @@ const EditEmployee = () => {
             ...selectedEmployeeDetail,
             status: !selectedEmployeeDetail.status,
         });
-    };
+    };    
 
 
     return (
