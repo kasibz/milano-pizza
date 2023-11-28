@@ -155,7 +155,7 @@ const POSPage = () => {
 
     const renderLoggedInCustomer = () => {
         if (loggedInCustomer) {
-            return <nav className='navbar-brand'>Customer #: {loggedInCustomer.telephoneID}</nav>;
+            return <span className='bg-light-head'>Customer #: {loggedInCustomer.telephoneID}</span>;
         } return null;
     };
 
@@ -195,13 +195,20 @@ const POSPage = () => {
                     {products.map((product, key) => (
 
                         <div key={key} className='col-lg-4 mb-4'>
-                            <div className='pos-item px-3 text-center border' 
+                            <div className='pos-item px-3 text-center' 
                             onClick={() => addProductToCart(product)}>
-                                <p>{product.name}</p>
+                                <p>{product.name} 
+
+                                </p>
                                 <img className='img-fluid' 
                                 src={product.image} alt={product.productID} 
                                 style={{ height:'200px', width:'200px'}}/>
-                                <p>${product.price.toFixed(2)}</p>
+                                <p><strong>${product.price.toFixed(2)}</strong></p>
+                                {
+                                    product.discount > 0 
+                                    ? <span className="badge bg-success">{product.discount}% Discount!</span> 
+                                    : <span></span>
+                                }
                             </div>
                         </div>  
                 
