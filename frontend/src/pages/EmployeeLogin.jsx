@@ -6,6 +6,8 @@ import Axios from 'axios';
 const EmployeeLogin = () => {
     const [employeeID, setEmployeeID] = useState('')
     const [password, setPassword] = useState('')
+    const [validEmployee, setValidEmployee] = useState(true)
+    const [error, setError] = useState()
     
     const navigate = useNavigate();
 
@@ -16,7 +18,10 @@ const EmployeeLogin = () => {
         try {
             const response = await Axios.get(url);
             const employeeData = response.data;
-
+            if (!employeeData.status) {
+                setValidEmployee(false)
+                return
+            }
             if (employeeData.id.toString() === employeeID && employeeData.lastName === password) {
                 // local storage
                 // the loggedInEMployee is a key
@@ -28,15 +33,34 @@ const EmployeeLogin = () => {
                 console.error('Wrong ID or pwd you idiottt');
             }
         } catch (error) {
+            setValidEmployee(true)
+            setError(error)
             console.error('Error fetching employee data', error);
+            
         }
     };
-    
+
     return (
         <>
         <MainLayout>
             <div className="offset-3 col-6">
                 <div className="bg-light p-4 mt-4">
+                    {
+                        !validEmployee ? (
+                            <div className="alert alert-danger" role="alert">
+                            This Employee exists but is Inactive!
+                            </div>
+                        ) : <span></span>
+                    }
+                    {
+                        error ? (
+                            <div className="alert alert-danger" role="alert">
+                            Error logging in: {error.message}
+                            </div>
+                        ) : <span></span>
+                    }
+
+                    
                 <h2>Employee Login</h2>
                 <form onSubmit={handleSubmit}>
                     <div className="form-floating mb-3">
