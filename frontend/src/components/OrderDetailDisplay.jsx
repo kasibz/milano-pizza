@@ -1,6 +1,24 @@
+import { useEffect, useState } from 'react';
 import convertToHumanTime from '../helpers/convertToHumanTime';
+import axios from 'axios';
+import MainLayout from '../layouts/MainLayout';
 
 function OrderDetailDisplay({orderDetails}) {
+
+    const [telephoneID, setTelephoneID] = useState()
+    // show the phone number
+
+    useEffect(() => {
+        axios.get(`http://localhost:8080/customer/1000/customerOrder`)
+    }, [])
+    
+    if(!orderDetails) {
+        return (
+            <MainLayout>
+                <h2>Nothin in the cart!</h2>
+            </MainLayout>
+        )
+    }
 
     return (
         <> 

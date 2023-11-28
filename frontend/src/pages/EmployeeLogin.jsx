@@ -16,12 +16,6 @@ const EmployeeLogin = () => {
         try {
             const response = await Axios.get(url);
             const employeeData = response.data;
-            
-            // console.log("employeeID:", employeeID);
-            // console.log("password:", password);
-            // console.log(response);
-            // console.log("employeeData", employeeData);
-            // console.log("lookhere", employeeData.lastName);
 
             if (employeeData.id.toString() === employeeID && employeeData.lastName === password) {
                 // local storage
@@ -42,7 +36,7 @@ const EmployeeLogin = () => {
         <>
         <MainLayout>
             <div className="offset-3 col-6">
-                <div className="shadow p-4 mt-4">
+                <div className="bg-light p-4 mt-4">
                 <h2>Employee Login</h2>
                 <form onSubmit={handleSubmit}>
                     <div className="form-floating mb-3">
@@ -67,7 +61,7 @@ const EmployeeLogin = () => {
                         required
                         />
                     </div>
-                    <input type="submit" />
+                    <input className='btn btn-primary' type="submit" />
                 </form>
                 <div>
                     Need an Account?<br />

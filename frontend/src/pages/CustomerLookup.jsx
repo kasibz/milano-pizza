@@ -1,15 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import Axios from 'axios';
 import MainLayout from '../layouts/MainLayout';
-import {Navigate, useNavigate} from 'react-router-dom'
 
 const CustomerLookup = () => {
     const [telephoneID, setTelephoneID] = useState('');
     const [customer, setCustomer] = useState([]);
-    const [customerOrderID, setCustomerOrderID] = useState('');
     const [customerOrders, setCustomerOrders] = useState([]);
     const [orderDetails, setOrderDetails] = useState([]);
-    var OrderID;
+    const [validCustomer, setValidCustomer] = useState(true)
 
     const url = `http://localhost:8080/customer/${telephoneID}/customerOrder`
 
@@ -33,15 +31,21 @@ const CustomerLookup = () => {
     const fetchCustomer = async (event) => {
         if(telephoneID)
         {
-            const response = await Axios.get(`http://localhost:8080/customer/${telephoneID}`)
-            setCustomer(response.data);
-        }
+            try {
+                const response = await Axios.get(`http://localhost:8080/customer/${telephoneID}`)
+                setCustomer(response.data);
+            } catch {
+                setValidCustomer(false)
+                console.log("it didn't work")
+            }
+
+        } 
 
     }
     useEffect(() => {
         fetchCustomer();
     }
-        ,[]);
+        ,[customer]);
 
     const fetchOrderDetails = async (event) => {
         try{
@@ -68,11 +72,22 @@ const CustomerLookup = () => {
         }
         ,[customerOrders]);
 
+    // if (!validCustomer) {
+    //     return (
+    //         <h2>Not a valid customer!</h2>
+    //     )
+    // }
+
     return (
         <MainLayout>
         <>
+        {
+            !customerOrders ? <div className="alert alert-danger" role="alert">
+            Customer does not exist!
+          </div> : <span></span>
+        }
         <div className="offset-3 col-6">
-        <div className="shadow p-4 mt-4">
+        <div className="bg-light p-4 mt-4">
             <h2>Customer Lookup</h2>
             <form onSubmit={fetchCustomerOrders}>
                 <div className='form-floating mb-3'>
@@ -90,23 +105,32 @@ const CustomerLookup = () => {
         </div>
         </div>
         <div className="offset-3 col-6">
-        <div className="shadow p-4 mt-4">
-            <h2>Orders</h2>
-            {customerOrders.map((order) => (
-            <ul key= {order.id}>
-                <h3>Customer Order {order.id}</h3>
-                {orderDetails.map(orderList => {return(
-                    orderList.filter(item=>item.customerOrderID === order.id).map((order, index) => {
-                        return (
-                            <li key={index}>
-                                    Product: {order.productName} | Quantity: {order.quantity} | Price: ${order.subTotal.toFixed(2)}
-                            </li>
-                        )
-                    })
-                
-                )})}
-            </ul>
-            ))}
+        <div className="bg-light p-4 mt-4">
+        {
+            !customerOrders ? (
+                <span></span>
+            ) : (
+                <div>
+                <h2>Orders</h2>
+                {customerOrders.map((order) => (
+                <ul key= {order.id}>
+                    <h3>Customer Order {order.id}</h3>
+                    {orderDetails.map(orderList => {return(
+                        orderList.filter(item=>item.customerOrderID === order.id).map((order, index) => {
+                            return (
+                                <li key={index}>
+                                        Product: {order.productName} | Quantity: {order.quantity} | Price: ${order.subTotal.toFixed(2)}
+                                </li>
+                            )
+                        })
+                    
+                    )})}
+                </ul>
+                ))}
+                </div>
+            )
+        }
+            
         </div>
         </div>
         </>

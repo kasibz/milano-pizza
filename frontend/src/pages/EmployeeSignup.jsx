@@ -34,7 +34,7 @@ const EmployeeSignup = () => {
         <>
         <MainLayout>
             <div className="offset-3 col-6">
-            <div className="shadow p-4 mt-4">
+            <div className="bg-light p-4 mt-4">
             <h2>Employee Sign Up</h2>
             <form onSubmit={handleSubmit}>
                 <div className="form-floating mb-3">
@@ -57,7 +57,7 @@ const EmployeeSignup = () => {
                     type="text"
                     />
                 </div>
-                <input type="submit" />
+                <input className='btn btn-primary' type="submit" />
             </form>
             </div>
             </div>
