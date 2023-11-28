@@ -4,62 +4,34 @@ import MainLayout from '../layouts/MainLayout';
 //import {Navigate, useNavigate} from 'react-router-dom'
 import axios from 'axios';
 
+
 const CustomerLookup = () => {
     const [orderDetails, setOrderDetails] = useState([]);
     const [telephoneID, setTelephoneID] = useState([]);
     const [selectedTelephoneID, setSelectedTelephoneID] = useState("");
-    //const [searchTerm, setSearchTerm] = useState('');
     
-    
-
-        try{
-            console.log(telephoneID);
-            const response = await Axios.get(url);
-            const responseData = response.data;
-
-            console.log("customer order(s) found:", response.data);
-            console.log("customer order id = ", responseData[0].id.toString());
-            const customerOrderID = responseData[0].id;
-            console.log(responseData);
-
-            const newResponse = await Axios.get(`http://localhost:8080/customerOrder/${customerOrderID}/orderDetail`)
-            console.log("order details found: ", newResponse.data);
-
     const fetchTelephoneID = async() => {
         try {
-            const response = await axios.get("http://localhost:8080/customerOrder")
+            const response = await axios.get("http://localhost:8080/customer");
+            console.log("telephone id", response.data);
             setTelephoneID(response.data);
         }
         catch (error){
             console.error('Error fetching telephone IDs', error);
         }
+
     };
 
     useEffect(() => {
         fetchTelephoneID();
     }, []);
 
-    // const handleSubmit = (event) => {
-    //     setSelectedTelephoneID(event.target.value);
-    // };
-
-    // const handleSearch = () => {
-    //     try{
-    //         if(selectedTelephoneID) {
-    //             const response = await axios.get(`http://localhost:8080/customer/${selectedTelephoneID}/customerOrder`);
-    //             setOrderDetails(response.data);
-    //         }
-    //     }
-    //     catch (error) {
-    //             console.error('Error fetching order details', error);
-    //        }
-    // };
     const handleSearch = async () => {
         console.log('handle search called')
         try {
           // Perform search based on the searchTerm
           const filteredIDs = telephoneID.filter((id) =>
-            id.toLowerCase().includes(selectedTelephoneID.toLowerCase())
+            id.includes(selectedTelephoneID)
           );
       
           // Update the UI with the filtered IDs
@@ -87,9 +59,14 @@ const CustomerLookup = () => {
     const fetchOrderDetails = async (selectedTelephoneID) => {
     try {
         const response = await axios.get(
-        `http://localhost:8080/customer/${customerID}/orderDetails`
+        `http://localhost:8080/customer/${telephoneID}/customerOrder`
         );
-        setOrderDetails(response.data);
+        const responseData = response.data;
+        const customerOrderID = responseData[0].id;
+        console.log(responseData);
+        const newResponse = await Axios.get(`http://localhost:8080/customerOrder/${customerOrderID}/orderDetail`);
+        console.log("order details", newResponse.data);
+        setOrderDetails(newResponse.data);
     } catch (error) {
         console.error('Error fetching order details', error);
     }
@@ -98,24 +75,6 @@ const CustomerLookup = () => {
     useEffect(() => {
         fetchOrderDetails();
     }, [selectedTelephoneID])
-
-        // try{
-        //     console.log(telephoneID);
-        //     const response = await Axios.get(url);
-        //     console.log("customer order(s) found:", response.data);
-        //     if (response.data == telephoneID){
-
-
-        //     }
-        // }
-        // catch (error) {
-        //     console.error('Error message: ', error)
-        // }
-    
-    
-    //useEffect(() => {
-      //  handleSubmit();
-    //},);
 
     return (
         <MainLayout>
@@ -142,4 +101,4 @@ const CustomerLookup = () => {
     );
 }
 
-export default CustomerLookup;
+export default CustomerLookup; 

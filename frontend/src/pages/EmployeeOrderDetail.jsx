@@ -7,35 +7,84 @@ import groupByWeek from '../helpers/groupByWeek';
 
 const EmployeeOrderDetail = () => {
 
-    const [employees, setEmployees] = useState([]);
-    const [selectedEmployee, setSelectedEmployee] = useState("");
-    const [orders, setOrders] = useState([]);
-
-    const fetchEmployees = async() => {
-        const response = await axios.get("http://localhost:8080/employee")
-        setEmployees(response.data);
-        
-    }
+    //const [customer, setCustomer] = useState([]);
+    const [telephoneID, setTelephoneID] = useState('');
+    //const [streetAddress, setStreetAddress] = useState('');
+    //const [zipcodeID, setZipCodeID] = useState('');
     
-    useEffect(() => {
-        fetchEmployees();
-    },[]);
+    const url = `http://localhost:8080/customer/${telephoneID}/customerOrder`
 
-    const handleSelectChange = (event) => {
-        setSelectedEmployee(event.target.value);
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+
+        try{
+            console.log(telephoneID);
+            const response = await Axios.get(url);
+            const responseData = response.data;
+
+            console.log("customer order(s) found:", response.data);
+            console.log("customer order id = ", responseData[0].id.toString());
+            const customerOrderID = responseData[0].id;
+            console.log(responseData);
+
+            const newResponse = await Axios.get(`http://localhost:8080/customerOrder/${customerOrderID}/orderDetail`)
+            console.log("order details found: ", newResponse.data);
+
+        }
+        catch (error) {
+            console.error('Error message: ', error)
+        }
     };
     
-    const fetchOrders = async() => {
-        if (selectedEmployee) {
-            const response = await axios.get(`http://localhost:8080/employee/${selectedEmployee}/customerOrder`);
-            console.log("the get request", response.data)
-            setOrders(groupByWeek(response.data));
-        }
-    }
+     //useEffect(() => {
+       //  handleSubmit();
+     //},);
 
-    useEffect(() => {
-        fetchOrders();
-    }, [selectedEmployee]);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    //=======================alyssas code==============================
+    // const [employees, setEmployees] = useState([]);
+    // const [selectedEmployee, setSelectedEmployee] = useState("");
+    // const [orders, setOrders] = useState([]);
+
+    // const fetchEmployees = async() => {
+    //     const response = await axios.get("http://localhost:8080/employee")
+    //     setEmployees(response.data);
+        
+    // }
+    
+    // useEffect(() => {
+    //     fetchEmployees();
+    // },[]);
+
+    // const handleSelectChange = (event) => {
+    //     setSelectedEmployee(event.target.value);
+    // };
+    
+    // const fetchOrders = async() => {
+    //     if (selectedEmployee) {
+    //         const response = await axios.get(`http://localhost:8080/employee/${selectedEmployee}/customerOrder`);
+    //         console.log("the get request", response.data)
+    //         setOrders(groupByWeek(response.data));
+    //     }
+    // }
+
+    // useEffect(() => {
+    //     fetchOrders();
+    // }, [selectedEmployee]);
 
     return (
         <MainLayout>

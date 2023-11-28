@@ -82,6 +82,8 @@ const HomePage = () => {
                 {/* <Link to='/pos' className='btn btn-primary'>Click to start the POS system</Link><br /><br /> */}
                 <Link to='/employeeorderdetail' className='btn btn-primary'>Orders By Employee</Link>
                 <br /><br />
+                <Link to='/customerlookup' className='btn btn-primary'>Customer Lookup</Link>
+                <br /><br />
 
                 <label className='dropdown'>View Orders by ZipCode</label>
                 <select 
