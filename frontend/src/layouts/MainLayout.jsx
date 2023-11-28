@@ -43,8 +43,11 @@ function MainLayout({children}) {
             <nav className="navbar-brand">
                 <Link to="/logout">Employee LogOut</Link>
             </nav>
-            <nav className="navbar-brand">
+            {/* <nav className="navbar-brand">
                 <Link to="/customerlogout">Place order with a new customer</Link>
+            </nav> */}
+            <nav className="navbar-brand">
+                <Link to="/customerlookup">Customers</Link>
             </nav>
         </nav>
         </div>
