@@ -1,14 +1,19 @@
-import { useParams } from "react-router-dom";
 import React from 'react';
 import {useEffect, useState} from 'react';
 import axios from "axios";
 import MainLayout from '../layouts/MainLayout';
+import {useNavigate} from 'react-router-dom';
 
 
 function EditProductPage() {
 
     const [products, setProducts] = useState([]);
     const [selectedProduct, setSelectedProduct] = useState(null);
+
+    const [name, setName] = useState('');
+    const [price, setPrice] = useState();
+    const [image, setImage] = useState('');
+    const navigate = useNavigate();
 
     const fetchProducts = async() => {
         const response = await axios.get("http://localhost:8080/product")
@@ -37,6 +42,7 @@ function EditProductPage() {
             // Refetch products after the update
             fetchProducts();
             setSelectedProduct(null); // Clear the selected product after updating
+            alert("Product Modified Successfully")
           } catch (error) {
             console.error('Error updating product:', error);
           }
@@ -64,13 +70,34 @@ function EditProductPage() {
         });
       };
 
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+
+        try {
+            const postUrl = 'http://localhost:8080/product'
+            const response = await axios.post(postUrl, {
+                name: name,
+                price: price,
+                image: image
+            });
+            console.log(name, price, image);
+            console.log("product added", response.data);
+            alert("Product added Successfully");
+
+            setName('');
+            setPrice('');
+            setImage('');
+        } catch (error) {
+            console.error('Error message: Try again Suckaaaaaa', error)
+        }
+    };
+
     return (
         <MainLayout>
             <h1>Product List</h1>
             <ul className="list-group">
             {products.map((product) => (
-                <li className="list-group-item active" 
-                aria-current='true' 
+                <li className="list-group-item " 
                 key={product.id} 
                 onClick={() => handleSelectProduct(product)}>
                     {product.name}
@@ -115,6 +142,46 @@ function EditProductPage() {
         ) : (
           <p>No product selected</p>
         )}
+        <br />
+        <br />
+        <div className="">
+                <div className="shadow p-4 mt-4">
+                <h2>Add a New Product</h2>
+                    <form onSubmit={handleSubmit}>
+                        <div className="form-floating mb-3">
+                            <input
+                            id="name"
+                            name="name"
+                            placeholder="Product Name"
+                            value={name}
+                            onChange={(e) => setName(e.target.value)}
+                            type="text"
+                            />
+                        </div>
+                        <div className="form-floating mb-3">
+                            <input 
+                            id="price"
+                            name="price"
+                            placeholder="Price"
+                            value={price}
+                            onChange={(e) => setPrice(e.target.value)}
+                            type="float"
+                            />
+                        </div>
+                        <div className="form-floating mb-3">
+                            <input
+                            id="image"
+                            name="image"
+                            placeholder="Image URL of the product"
+                            value={image}
+                            onChange={(e) => setImage(e.target.value)}
+                            type="text"
+                            />
+                        </div>
+                        <input type="submit" />
+                    </form>
+                </div>
+            </div>
         
         </MainLayout>
     );

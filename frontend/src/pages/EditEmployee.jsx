@@ -45,6 +45,12 @@ const EditEmployee = () => {
             status: selectedEmployeeDetail.status
         });
         fetchEmployeeDetail();
+        alert("Employee edited Successfully");
+
+        fetchEmployees();
+        setSelectedEmployeeDetail(null);
+        setSelectedEmployee('');
+
     }
 
     const handleFirstNameChange = (event) => {

@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import Axios from 'axios';
 import MainLayout from '../layouts/MainLayout';
+import {Link, useNavigate} from 'react-router-dom'
 
 const CustomerLookup = () => {
     const [telephoneID, setTelephoneID] = useState('');
@@ -9,6 +10,7 @@ const CustomerLookup = () => {
     const [orderDetails, setOrderDetails] = useState([]);
     const [validCustomer, setValidCustomer] = useState(true)
 
+    const navigate = useNavigate();
     const url = `http://localhost:8080/customer/${telephoneID}/customerOrder`
 
     const fetchCustomerOrders = async (event) => {
@@ -36,9 +38,8 @@ const CustomerLookup = () => {
                 setCustomer(response.data);
             } catch {
                 setValidCustomer(false)
-                console.log("it didn't work")
             }
-
+            localStorage.setItem("loggedInCustomer", JSON.stringify(customer))
         } 
 
     }
@@ -112,6 +113,7 @@ const CustomerLookup = () => {
             ) : (
                 <div>
                 <h2>Orders</h2>
+                <Link to='/pos' className='btn btn-primary'>New Order</Link>
                 {customerOrders.map((order) => (
                 <ul key= {order.id}>
                     <h3>Customer Order {order.id}</h3>
