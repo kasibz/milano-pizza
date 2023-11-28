@@ -31,7 +31,7 @@ public class OrderDetail {
     private Product product;
     private LocalDateTime orderDate;
     private Long quantity;
-    private Double discount;
+    private Long discount;
     private Double subTotal;
 
     public Long getId() {
@@ -70,11 +70,11 @@ public class OrderDetail {
         this.quantity = quantity;
     }
 
-    public Double getDiscount() {
+    public Long getDiscount() {
         return discount;
     }
 
-    public void setDiscount(Double discount) {
+    public void setDiscount(Long discount) {
         this.discount = discount;
     }
 

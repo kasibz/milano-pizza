@@ -1,47 +1,77 @@
-/* #root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+body, .container {
+  background-color: #e0f4ff;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='12' viewBox='0 0 20 12'%3E%3Cg fill-rule='evenodd'%3E%3Cg id='charlie-brown' fill='%2339a7ff' fill-opacity='0.19'%3E%3Cpath d='M9.8 12L0 2.2V.8l10 10 10-10v1.4L10.2 12h-.4zm-4 0L0 6.2V4.8L7.2 12H5.8zm8.4 0L20 6.2V4.8L12.8 12h1.4zM9.8 0l.2.2.2-.2h-.4zm-4 0L10 4.2 14.2 0h-1.4L10 2.8 7.2 0H5.8z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+.pos-item {
+  border: 2px dashed #39A7FF;
+  border-radius: 1rem;
+  padding: 1rem;
+  background-color: rgb(248,249,250);
+  transition: 0.3s all;
+  cursor: pointer;
 }
 
-
-
-
-
-
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.pos-item:hover {
+  background-color: #FFEED9;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+.bg-light {
+  border-radius: 1rem;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background-color: #FFEED9;
 }
 
-.card {
-  padding: 2em;
+.bg-light-sub {
+  display: flex;
+  justify-content: space-around;
 }
 
-.read-the-docs {
-  color: #888;
-} */
+.bg-light-head {
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background-color: rgb(248,249,250);
+  padding: 0.25rem 1rem;
+  margin: 0.5rem 0rem;
+  width: auto;
+}
+
+.discount-input {
+  width: 2.5rem;
+}
+
+.col-lg-4 {
+  width: 250px;
+}
+
+.col-lg-4-cart {
+  width: 500px;
+}
+
+.col-lg-8{
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  width: 600px;
+}
+
+.btn-primary {
+  margin-right: 1rem;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+.alyssa-img {
+  width: 300px;
+  padding-left: 1rem;
+  margin-left: 2rem;
+}
+
+.table-responsive {
+  border-radius: 0.5rem;
+  padding: 0.5rem;
+}
+
+

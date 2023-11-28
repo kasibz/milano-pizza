@@ -16,7 +16,7 @@ public interface OrderDetailRepo extends JpaRepository<OrderDetail, Long> {
         Long getProductID();
         LocalDateTime getOrderDate();
         Long getQuantity();
-        Double getDiscount();
+        Long getDiscount();
         Double getSubTotal();
         String getProductName();
     }
