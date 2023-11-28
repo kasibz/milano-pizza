@@ -24,7 +24,13 @@ function OrderDetailZipcode() {
         })
     }, [])
 
-    // need to make the get for the orderDetails
+    if(!orderDetail) {
+        return (
+            <MainLayout>
+                <h2>Nothin in the cart!</h2>
+            </MainLayout>
+        )
+    }
 
     return (
         <MainLayout>
