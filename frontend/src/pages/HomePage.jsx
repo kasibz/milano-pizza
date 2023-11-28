@@ -146,8 +146,6 @@ const HomePage = () => {
                             </form>
                         </div>
                         <div>
-                            <p></p>
-                            {/* <Link to='/pos' className='btn btn-primary'>Click to start the POS system</Link><br /><br /> */}
                             <Link to='/employeeorderdetail' className='btn btn-primary'>Orders By Employee</Link>
                             <div className="btn-group">
                                 <button type="button" className="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -164,7 +162,6 @@ const HomePage = () => {
                                 </div>
                             </div>
                             <br /><br />
-
                             <label className='dropdown'>View Orders by ZipCode</label>
                             <select 
                                 id='lookUpByZip' 
@@ -180,11 +177,12 @@ const HomePage = () => {
                             ))}
                             </select>
                         </div>
+                        <div>
+                            <img className='alyssa-img' src={alyssa}></img>
+                        </div>
                     </div>
             </div>
-            <div className='bg-light p-5 mt-d rounded-3'>
-                <img src={alyssa}></img>
-            </div>
+
 
         </MainLayout>
     

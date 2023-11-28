@@ -18,7 +18,6 @@ function OrderZipcode() {
     useEffect(() => {
         axios.get(`http://localhost:8080/zipcode/${zipcodeID}/customerOrder`)
         .then(res => {
-            console.log(res.data)
             // got week from here
             setOrders(groupByWeek(res.data))
         })
@@ -27,9 +26,9 @@ function OrderZipcode() {
         })
     }, [zipcodeID])
 
-    if (!orders) {return (
+    if (orders.length < 1) {return (
         <MainLayout>
-            <h2>No Entries Found</h2>
+            <h2>No Entries Found for {zipcodeID}</h2>
         </MainLayout>
     )}
 

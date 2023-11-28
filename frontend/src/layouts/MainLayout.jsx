@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import {Link} from 'react-router-dom'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
@@ -23,9 +23,9 @@ function MainLayout({children}) {
     return (
     <div>
     <header>
-        <div className="container" style={{ backgroundColor: 'white'}}><br />
+        <div className="container"><br />
             {employee ?  "Logged in as: " + employee.firstName + " " + employee.lastName : "Employee login needed to create orders"}
-        <nav className="navbar navbar-expand-lg bg-light navbar-light" >
+        <nav className="navbar navbar-expand-lg bg-light " >
             <nav className="navbar-brand ">
                 <Link className="navbar-brand">
                     <img className='icon-image'></img>
