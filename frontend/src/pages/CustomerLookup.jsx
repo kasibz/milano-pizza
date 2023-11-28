@@ -66,7 +66,7 @@ const CustomerLookup = () => {
     useEffect(() => {
         fetchOrderDetails();
         }
-        ,[]);
+        ,[customerOrders]);
 
     return (
         <MainLayout>
