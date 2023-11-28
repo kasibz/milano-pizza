@@ -49,6 +49,9 @@ function MainLayout({children}) {
             <nav className="navbar-brand">
                 <Link to="/customerlookup">Customers</Link>
             </nav>
+            <nav className="navbar-brand">
+                <Link to="/editproduct">Products</Link>
+            </nav>
         </nav>
         </div>
     </header>

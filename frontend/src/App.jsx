@@ -4,7 +4,6 @@ import POSPage from './pages/POSPage';
 import EmployeeLogin from './pages/EmployeeLogin';
 import EmployeeSignup from './pages/EmployeeSignup';
 import EmployeeLogOut from './pages/EmployeeLogOut';
-import AddProduct from './pages/AddProduct';
 import OrderZipcode from './pages/OrderZipcode';
 import EmployeeOrderDetail from './pages/EmployeeOrderDetail';
 import OrderDetailZipcode from './pages/OrderDetailZipcode';
@@ -27,7 +26,6 @@ function App() {
           <Route path="/login" element = { <EmployeeLogin/> } />
           <Route path="/signup" element = { <EmployeeSignup/> } />
           <Route path="/logout" element = { <EmployeeLogOut/> } />
-          <Route path='/addProduct' element = { <AddProduct/> } />
           <Route path="/customerlookup" element = {<CustomerLookup/>}/>
           <Route path='/orderbyzipcode/:zipcodeID' element = { <OrderZipcode/> } />
           <Route path='/employeeorderdetail' element = { <EmployeeOrderDetail/> } />
