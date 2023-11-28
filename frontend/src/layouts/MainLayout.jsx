@@ -5,13 +5,6 @@ import 'react-toastify/dist/ReactToastify.css';
 
 
 function MainLayout({children}) {
-    // const loggedInEmployee = JSON.parse(localStorage.getItem('loggedInEmployee'));
-
-    // const renderLoggedInEmployee = () => {
-    //     if (loggedInEmployee) {
-    //         return <nav className='navbar-brand'>Hello, {loggedInEmployee.firstName}</nav>;
-    //     } return null;
-    // };
 
     const [employee, setEmployee] = useState(false)
 
@@ -37,15 +30,14 @@ function MainLayout({children}) {
             <nav className="navbar-brand">
                 <Link to="/editemployee">Edit Employee</Link>
             </nav>
+            {/* {!employee && (
             <nav className="navbar-brand">
                 <Link to="/login">Login</Link>
             </nav>
+            )} */}
             <nav className="navbar-brand">
                 <Link to="/logout">Employee LogOut</Link>
             </nav>
-            {/* <nav className="navbar-brand">
-                <Link to="/customerlogout">Place order with a new customer</Link>
-            </nav> */}
             <nav className="navbar-brand">
                 <Link to="/customerlookup">Customers</Link>
             </nav>
