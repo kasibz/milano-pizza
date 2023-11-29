@@ -1,11 +1,9 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import convertToHumanTime from '../helpers/convertToHumanTime';
 import axios from 'axios';
 import MainLayout from '../layouts/MainLayout';
 
-function OrderDetailDisplay({orderDetails}) {
-
-    const [telephoneID, setTelephoneID] = useState()
+function OrderDetailDisplay({orderDetails, telephoneID}) {
     // show the phone number
 
     useEffect(() => {
@@ -22,6 +20,7 @@ function OrderDetailDisplay({orderDetails}) {
 
     return (
         <> 
+            <h2>Customer Telephone #: {telephoneID}</h2>
             <table className="table">
                 <thead>
                     <tr>
