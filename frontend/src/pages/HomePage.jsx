@@ -13,6 +13,8 @@ const HomePage = () => {
     const [customers, setCustomers] = useState([]);
     const [products, setProducts] = useState([])
     const [customerLookupSuccess, setCustomerLookupSuccess] = useState(false)
+    const [newCustomerSuccess, setNewCustomerSuccess] = useState(false)
+    const [customerExists, setCustomerExists] = useState(true)
 
     
     const navigate = useNavigate();
@@ -60,11 +62,15 @@ const HomePage = () => {
             });
             const customerData = response.data;
             localStorage.setItem('loggedInCustomer', JSON.stringify(customerData));
-            console.log(response.data);
             if (customerData) {
-                navigate('/pos');
+                setNewCustomerSuccess(true)
+                setTimeout(() => {
+                    navigate('/pos')
+                }, 1500)
+                return
             }
         } catch (error) {
+            setCustomerExists(false)
             console.error('Error message: watchh: ', error)
         }
     };
@@ -96,6 +102,18 @@ const HomePage = () => {
                 customerLookupSuccess &&
                 <div className="alert alert-success" role="alert">
                     Customer found! Starting order...
+                </div>
+            }
+            {
+                newCustomerSuccess &&
+                <div className="alert alert-success" role="alert">
+                    New Customer Entered! Starting order...
+                </div>
+            }
+            {
+                !customerExists &&
+                <div className="alert alert-danger" role="alert">
+                    There was server side error
                 </div>
             }
             <div className='bg-light p-5 mt-4 rounded-3'>
