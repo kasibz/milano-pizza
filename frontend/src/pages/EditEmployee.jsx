@@ -85,7 +85,7 @@ const EditEmployee = () => {
                 <option value="">Select...</option>
                 {employees.map((employee) => (
                 <option key={employee.id} value={employee.id}>
-                    ID: {employee.id} Name: {employee.firstName} 
+                    ID: {employee.id} Name: {employee.firstName} Status: {employee.status ? "Active" : "Inactive"}
                 </option>
                 ))}
             </select>
