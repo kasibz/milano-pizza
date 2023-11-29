@@ -8,7 +8,7 @@ import groupByWeek from '../helpers/groupByWeek';
 const EmployeeOrderDetail = () => {
 
     const [employees, setEmployees] = useState([]);
-    const [selectedEmployee, setSelectedEmployee] = useState("");
+    const [selectedEmployee, setSelectedEmployee] = useState();
     const [orders, setOrders] = useState([]);
 
     const fetchEmployees = async() => {
@@ -23,12 +23,16 @@ const EmployeeOrderDetail = () => {
 
     const handleSelectChange = (event) => {
         setSelectedEmployee(event.target.value);
+        fetchOrders()
     };
     
     const fetchOrders = async() => {
         if (selectedEmployee) {
             const response = await axios.get(`http://localhost:8080/employee/${selectedEmployee}/customerOrder`);
             console.log("the get request", response.data)
+            if (response.data.length < 1) {
+                setOrders([])
+            }
             setOrders(groupByWeek(response.data));
         }
     }

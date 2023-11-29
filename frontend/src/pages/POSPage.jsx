@@ -26,6 +26,7 @@ const POSPage = () => {
     const [employeeID, setEmployeeID] = useState()
     const [customerID, setCustomerID] = useState()
     const [success, setSuccess] = useState(false)
+    const [loggedInCustomer, setLoggedInCustomer] = useState()
 
     const fetchProducts = async() => {
         setIsLoading(true);
@@ -151,7 +152,9 @@ const POSPage = () => {
         setTotalAmount(newTotalAmount);
     },[cart])
 
-    const loggedInCustomer = JSON.parse(localStorage.getItem('loggedInCustomer'));
+    useEffect(() => {
+        setLoggedInCustomer(JSON.parse(localStorage.getItem('loggedInCustomer')))
+    }, [])
 
     const renderLoggedInCustomer = () => {
         if (loggedInCustomer) {

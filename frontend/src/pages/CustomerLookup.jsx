@@ -5,7 +5,7 @@ import {Link, useNavigate} from 'react-router-dom'
 
 const CustomerLookup = () => {
     const [telephoneID, setTelephoneID] = useState('');
-    const [customer, setCustomer] = useState([]);
+    const [customer, setCustomer] = useState();
     const [customerOrders, setCustomerOrders] = useState([]);
     const [orderDetails, setOrderDetails] = useState([]);
     const [validCustomer, setValidCustomer] = useState(true)
@@ -28,25 +28,23 @@ const CustomerLookup = () => {
         catch (error) {
             console.error('Error message: ', error)
         }
+        fetchCustomer()
     };
 
-    const fetchCustomer = async (event) => {
+    const fetchCustomer = async () => {
         if(telephoneID)
         {
             try {
                 const response = await Axios.get(`http://localhost:8080/customer/${telephoneID}`)
+                localStorage.setItem("loggedInCustomer", JSON.stringify(response.data))
                 setCustomer(response.data);
             } catch {
                 setValidCustomer(false)
             }
-            localStorage.setItem("loggedInCustomer", JSON.stringify(customer))
         } 
 
     }
-    useEffect(() => {
-        fetchCustomer();
-    }
-        ,[customer]);
+
 
     const fetchOrderDetails = async (event) => {
         try{
@@ -113,7 +111,7 @@ const CustomerLookup = () => {
             ) : (
                 <div>
                 <h2>Orders</h2>
-                <Link to='/pos' className='btn btn-primary'>New Order</Link>
+                {customer && <Link to='/pos' className='btn btn-primary'>New Order</Link>}
                 {customerOrders.map((order) => (
                 <ul key= {order.id}>
                     <h3>Customer Order {order.id}</h3>
