@@ -26,6 +26,8 @@ public class CustomerOrderController {
     @Autowired
     private EmployeeRepo employeeRepo;
 
+
+
     @GetMapping("/customerOrder")
     public ResponseEntity<List<CustomerOrderRepo.CustomerOrderWithAssociations>> getAllCustomerOrdersWithAssociations() {
         try {
@@ -42,9 +44,21 @@ public class CustomerOrderController {
         }
     }
 
+    @GetMapping("/customerOrder/{id}")
+    public ResponseEntity<List<CustomerOrderRepo.CustomerOrderWithAssociations>> getCustomerOrderById(@PathVariable Long id) {
+        List<CustomerOrderRepo.CustomerOrderWithAssociations> customerOrderData = customerOrderRepo.findByCustomerOrderIdWithAssociations(id);
+
+        if (!customerOrderData.isEmpty()) {
+
+            return new ResponseEntity<>(customerOrderData, HttpStatus.OK);
+        }
+
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+
     // this should ideally grab orders either by employee or customer
     @GetMapping("customer/{id}/customerOrder")
-    public ResponseEntity<List<CustomerOrderRepo.CustomerOrderWithAssociations>> getCustomerOrderById(@PathVariable Long id) {
+    public ResponseEntity<List<CustomerOrderRepo.CustomerOrderWithAssociations>> getCustomerOrderByCustomerId(@PathVariable Long id) {
         List<CustomerOrderRepo.CustomerOrderWithAssociations> customerOrderData = customerOrderRepo.findByIdWithAssociations(id);
         if (customerOrderData.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
