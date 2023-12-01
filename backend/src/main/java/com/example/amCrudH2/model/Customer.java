@@ -26,9 +26,7 @@ public class Customer {
     private Zipcode zipcode; // <-- needs to be a foreign key look that up!
 
 
-    public Zipcode getZipcode () {
-        return this.zipcode;
-    }
+
     @Override
     public String toString() {
         return "Customer{" +
@@ -37,8 +35,12 @@ public class Customer {
                 ", zipcode=" + (zipcode != null ? zipcode.getZipcodeID() : null) +
                 '}';
     }
-    public void setZipcode(Zipcode zipcode) {
 
+    public Zipcode getZipcode() {
+        return zipcode;
+    }
+
+    public void setZipcode(Zipcode zipcode) {
         this.zipcode = zipcode;
     }
 
