@@ -14,8 +14,8 @@ public class CustomerRequest {
     private String streetAddress;
     private Long zipcode_id;
 
-    public Long getZipcodeId() {
-        return this.zipcode_id;
+    public Long getZipcode_id() {
+        return zipcode_id;
     }
 
     public Long getTelephoneID() {

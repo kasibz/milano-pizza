@@ -53,7 +53,7 @@ public class CustomerController {
     // we instantiate the customer and set its parent!
     @PostMapping("/customer")
     public ResponseEntity<Customer> addCustomer(@RequestBody CustomerRequest customerRequest) {
-        Optional<Zipcode> zipcodeOptional = zipcodeRepo.findById(customerRequest.getZipcodeId());
+        Optional<Zipcode> zipcodeOptional = zipcodeRepo.findById(customerRequest.getZipcode_id());
         if (!zipcodeOptional.isPresent()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
@@ -68,19 +68,21 @@ public class CustomerController {
 
     // update customer
     @PostMapping("/customer/{id}")
-    public ResponseEntity<Customer> updateCustomerById(@PathVariable Long id, @RequestBody Customer newCustomer) {
+    public ResponseEntity<Customer> updateCustomerById(@PathVariable Long id, @RequestBody CustomerRequest newCustomer) {
         Optional<Customer> oldCustomerData = customerRepo.findById(id);
+        Optional<Zipcode> oldZipcodeData = zipcodeRepo.findById(newCustomer.getZipcode_id());
 
-        if (oldCustomerData.isPresent()) {
+        if (oldCustomerData.isPresent() && oldZipcodeData.isPresent()) {
             Customer existingCustomer = oldCustomerData.get();
+            Zipcode existingZipcode = oldZipcodeData.get();
 
             // I should update the non primary fields here with existing customer then make updated later
             if (newCustomer.getStreetAddress() != null) {
                 existingCustomer.setStreetAddress(newCustomer.getStreetAddress());
             }
 
-            if (newCustomer.getZipcode() != null) {
-                existingCustomer.setZipcode(newCustomer.getZipcode());
+            if (newCustomer.getZipcode_id() != null) {
+                existingCustomer.setZipcode(existingZipcode);
             }
 
             // make new object with updated values and give option to change telephone ID
@@ -90,7 +92,7 @@ public class CustomerController {
             updatedCustomer.setStreetAddress(existingCustomer.getStreetAddress());
             updatedCustomer.setZipcode(existingCustomer.getZipcode());
 
-            Customer savedCustomer = customerRepo.save(updatedCustomer);
+            Customer savedCustomer = customerRepo.save(existingCustomer);
             return new ResponseEntity<>(savedCustomer, HttpStatus.OK);
         }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
