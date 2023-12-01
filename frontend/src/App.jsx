@@ -13,6 +13,7 @@ import CustomerLookup from './pages/CustomerLookup';
 import EditEmployee from './pages/EditEmployee';
 import ProductPriceHistory from './pages/ProductPriceHistory';
 import EditProductPage from './pages/EditProductPage';
+import EditCustomer from './pages/EditCustomer';
 import "./App.css"
 
 
@@ -35,6 +36,7 @@ function App() {
           <Route path='/editproduct' element = { <EditProductPage/> } />
           <Route path='/customerlogout' element = { <CustomerLogOut/> } />
           <Route path='/editemployee' element = { <EditEmployee/> } />
+          <Route path='/editcustomer' element = { <EditCustomer/> } />
         </Routes>
       </Router>
     </>
