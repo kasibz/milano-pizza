@@ -32,6 +32,6 @@ public class PizzaSteps {
 
     @And("close browser")
     public void close_browser() {
-        driver.quit();
+
     }
 }
