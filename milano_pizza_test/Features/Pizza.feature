@@ -18,3 +18,21 @@ Feature: MilanoPizza Login
     When User clicks on Yes
     Then HomePage should say "Employee Login"
     And close browser
+
+#    scenario outline will run with multiple variables like different users
+  Scenario Outline: Login with Multiple valid accounts
+    Given User launch chrome browser
+    When User open localhost URL "http://localhost:5173/"
+    And User enters Id as "<id>" and password as "<lastName>"
+    And Click on Login
+    Then LoggedIn text on nav should be "Logged in as: <firstName> <lastName>"
+    When User clicks on Log out link
+    Then Page should say "Are you sure you want to log out?"
+    When User clicks on Yes
+    Then HomePage should say "Employee Login"
+    And close browser
+
+    Examples:
+      | id | firstName | lastName |
+      | 1 | admin | admin |
+      | 2 | Kasib | Abdullah |
