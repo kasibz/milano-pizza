@@ -1,0 +1,1 @@
+I needed to reload the project Build -> Rebuild Project Whenever it "lost" my package
