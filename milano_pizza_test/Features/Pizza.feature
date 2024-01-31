@@ -13,8 +13,8 @@ Feature: MilanoPizza Login
     And User enters Id as "1" and password as "admin"
     And Click on Login
     Then LoggedIn text on nav should be "Logged in as: admin admin"
-#    When User clicks on Log out link
-#    Then Page should say "Are you sure you want to log out?"
-#    When User clicks on Yes
-#    Then Page should say "Employee Login"
+    When User clicks on Log out link
+    Then Page should say "Are you sure you want to log out?"
+    When User clicks on Yes
+    Then HomePage should say "Employee Login"
     And close browser

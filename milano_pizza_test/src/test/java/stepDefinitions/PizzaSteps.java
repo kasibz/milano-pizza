@@ -7,12 +7,15 @@ import io.cucumber.java.en.When;
 import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import pageObjects.HomePage;
 import pageObjects.LoginPage;
 
 public class PizzaSteps {
     WebDriver driver;
     LoginPage lp;
+    HomePage hp;
 
     @Given("User launch chrome browser")
     public void user_launch_chrome_browser() {
@@ -20,6 +23,7 @@ public class PizzaSteps {
                 "/Users/kasibabdullah/Downloads/chromedriver-mac-arm64/chromedriver");
         driver = new ChromeDriver();
         lp = new LoginPage(driver);
+        hp = new HomePage(driver);
     }
 
     // has to be string
@@ -54,22 +58,29 @@ public class PizzaSteps {
         } else {
             Assert.assertEquals(loginText, spanLoginText);
         }
-
     }
 
     @When("User clicks on Log out link")
     public void user_click_on_log_out_link() {
-
+        hp.clickLogout();
     }
 
     @Then("Page should say {string}")
-    public void page_should_say() {
-
+    public void page_should_say(String logoutText) {
+        String h1LogoutText = driver.findElement(By.tagName("h1")).getText();
+        Assert.assertEquals(logoutText, h1LogoutText);
     }
 
     @When("User clicks on Yes")
     public void user_clicks_on_yes() {
+        WebElement btnLogoutYes = driver.findElement(By.tagName("button"));
+        btnLogoutYes.click();
+    }
 
+    @Then("HomePage should say {string}")
+    public void homepage_should_say(String employeeLoginText) {
+        String h2LoginText = driver.findElement(By.tagName("h2")).getText();
+        Assert.assertEquals(employeeLoginText, h2LoginText);
     }
 
     @And("close browser")
