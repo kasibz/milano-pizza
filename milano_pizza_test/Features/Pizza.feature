@@ -10,9 +10,9 @@ Feature: MilanoPizza Login
   Scenario: Successful Login with Valid Credentials
     Given User launch chrome browser
     When User open localhost URL "http://localhost:5173/"
-    And User enters Id as "1" and password as "admin"
+    And User enters Id as "1" and password as "Abdullah"
     And Click on Login
-    Then LoggedIn text on nav should be "Logged in as: admin admin"
+    Then LoggedIn text on nav should be "Logged in as: Kasib Abdullah"
     When User clicks on Log out link
     Then Page should say "Are you sure you want to log out?"
     When User clicks on Yes
@@ -34,5 +34,5 @@ Feature: MilanoPizza Login
 
     Examples:
       | id | firstName | lastName |
-      | 1 | admin | admin |
-      | 2 | Kasib | Abdullah |
+      | 1 | Kasib | Abdullah |
+      | 2 | Junhan | An |

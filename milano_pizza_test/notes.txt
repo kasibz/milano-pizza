@@ -1,1 +1,3 @@
+Navigate to chromedriver path and run "xattr -d com.apple.quarantine chromedriver"
+
 I needed to reload the project Build -> Rebuild Project Whenever it "lost" my package

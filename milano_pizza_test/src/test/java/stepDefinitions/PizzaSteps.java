@@ -20,7 +20,7 @@ public class PizzaSteps {
     @Given("User launch chrome browser")
     public void user_launch_chrome_browser() {
         System.setProperty("webdriver.chrome.driver",
-                "/Users/kasibabdullah/Downloads/chromedriver-mac-arm64/chromedriver");
+                "/Users/kasib.abdullah/Documents/utilities/chromedriver");
         driver = new ChromeDriver();
         lp = new LoginPage(driver);
         hp = new HomePage(driver);
