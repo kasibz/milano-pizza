@@ -7,3 +7,9 @@ Feature: Customers
     And Click on Login
     Then User can view Dashboard
     And User enters Phone Number as "123456789" and address as "709 Connell Drive"
+    And User clicks on zipcode dropdown
+    And Selects "55501"
+    And Click on Customer Submit
+    Then HomePage alert shows "New Customer Entered! Starting order..."
+    And close browser
+
