@@ -17,11 +17,7 @@ public class LoginPage {
         // pg initializaes elements w/ webdriver
     }
 
-//    WebElement idInput = driver.findElement(By.id("employeeID"));
-//    WebElement passInput = driver.findElement(By.id("password"));
-//
-//    // no compound  classNames
-//    WebElement submit = driver.findElement(By.className("btn-primary"));
+    // selecting Webelements by PageFactory Annotations in Selenium
     @FindBy(id = "employeeID")
     @CacheLookup
     WebElement txtEmployeeId;
@@ -38,6 +34,7 @@ public class LoginPage {
     @CacheLookup
     WebElement divLoginForm;
 
+    // Action methods
     public void setEmployeeId(String id) {
         txtEmployeeId.clear();
         txtEmployeeId.sendKeys(id);
