@@ -12,10 +12,8 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import pageObjects.HomePage;
 import pageObjects.LoginPage;
 
-public class PizzaSteps {
-    WebDriver driver;
-    LoginPage lp;
-    HomePage hp;
+public class PizzaSteps extends BaseSteps {
+
 
     @Given("User launch chrome browser")
     public void user_launch_chrome_browser() {
@@ -28,8 +26,9 @@ public class PizzaSteps {
 
     // has to be string
     @When("User open localhost URL {string}")
-    public void user_open_localhost(String string) {
+    public void user_open_localhost(String string) throws InterruptedException {
         driver.get(string);
+        Thread.sleep(1500);
     }
 
     @Then("User verify the login box in on page")
@@ -45,8 +44,9 @@ public class PizzaSteps {
     }
 
     @And("Click on Login")
-    public void click_on_login() {
+    public void click_on_login() throws InterruptedException {
         lp.clickLogin();
+        Thread.sleep(1500);
     }
 
     @Then("LoggedIn text on nav should be {string}")
@@ -61,8 +61,9 @@ public class PizzaSteps {
     }
 
     @When("User clicks on Log out link")
-    public void user_click_on_log_out_link() {
+    public void user_click_on_log_out_link() throws InterruptedException {
         hp.clickLogout();
+        Thread.sleep(1500);
     }
 
     @Then("Page should say {string}")
@@ -72,9 +73,10 @@ public class PizzaSteps {
     }
 
     @When("User clicks on Yes")
-    public void user_clicks_on_yes() {
+    public void user_clicks_on_yes() throws InterruptedException{
         WebElement btnLogoutYes = driver.findElement(By.tagName("button"));
         btnLogoutYes.click();
+        Thread.sleep(1500);
     }
 
     @Then("HomePage should say {string}")

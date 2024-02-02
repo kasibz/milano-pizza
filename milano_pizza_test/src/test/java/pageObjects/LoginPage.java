@@ -6,13 +6,15 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.CacheLookup;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-
+//Page Object Model
 public class LoginPage {
     public WebDriver ldriver;
 
+    // construct loginPage and make driver available to entire class
     public LoginPage(WebDriver rdriver) {
         ldriver = rdriver;
         PageFactory.initElements(rdriver, this);
+        // pg initializaes elements w/ webdriver
     }
 
 //    WebElement idInput = driver.findElement(By.id("employeeID"));
