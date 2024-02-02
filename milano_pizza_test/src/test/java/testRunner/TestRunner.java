@@ -7,7 +7,7 @@ import org.junit.runner.RunWith;
 
 @RunWith(Cucumber.class)
 @CucumberOptions(
-        features = "/Users/kasib.abdullah/Documents/repos/milano-pizza/milano_pizza_test/Features/Pizza.feature",
+        features = "/Users/kasib.abdullah/Documents/repos/milano-pizza/milano_pizza_test/Features/Customers.feature",
         glue = "stepDefinitions",
         plugin = {"pretty"}
 )

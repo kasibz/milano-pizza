@@ -26,7 +26,8 @@ public class HomePage {
     By option55502 = By.xpath("//option[@value='55502']");
     By option55503 = By.xpath("//option[@value='55503']");
     By option55504 = By.xpath("//option[@value='55504']");
-    By btnSubmit = By.xpath("//button[text()='Submit']");
+    By btnSubmit = By.xpath("//input[@type='submit']");
+    By txtRegisterCustomerSuccess = By.xpath("//div[text()='New Customer Entered! Starting order...']");
 
     // Action methods
     public void clickLogout() {
@@ -65,5 +66,9 @@ public class HomePage {
 
     public void clickSubmitCustomer() {
         ldriver.findElement(btnSubmit).click();
+    }
+
+    public String getRegisterCustomerAlert() {
+        return ldriver.findElement(txtRegisterCustomerSuccess).getText();
     }
 }
