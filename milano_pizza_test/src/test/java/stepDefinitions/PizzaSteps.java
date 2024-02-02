@@ -14,7 +14,7 @@ import pageObjects.LoginPage;
 
 public class PizzaSteps extends BaseSteps {
 
-
+    // need to instantiate page objects and driver
     @Given("User launch chrome browser")
     public void user_launch_chrome_browser() {
         System.setProperty("webdriver.chrome.driver",

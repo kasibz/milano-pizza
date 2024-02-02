@@ -22,4 +22,6 @@ public class BaseSteps {
         return RandomStringUtils.randomNumeric(10);
     }
 
+    // random zipcode?
+
 }
