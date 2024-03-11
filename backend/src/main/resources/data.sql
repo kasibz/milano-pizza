@@ -29,10 +29,10 @@ VALUES ('https://m.media-amazon.com/images/I/71iPemjZX1L.jpg', 'Soda - 2 Liter b
 ('https://popmenucloud.com/cdn-cgi/image/width%3D1200%2Cheight%3D1200%2Cfit%3Dscale-down%2Cformat%3Dauto%2Cquality%3D60/avyziwhj/5f7681f4-c1b5-40cc-b847-dc30720ded24.jpg', 'Pizza - large House special - 18 inch', 16.00, 0);
 
 INSERT INTO EMPLOYEE (FIRST_NAME, LAST_NAME, STATUS)
-VALUES ('Kasib', 'Abdullah', 1),
-('Junhan', 'An', 1),
-('John', 'Suero', 1),
-('Alyssa', 'Ramroop', 0);
+VALUES ('Kasib', 'Abdullah', true),
+('Junhan', 'An', true),
+('John', 'Suero', true),
+('Alyssa', 'Ramroop', false);
 
 --Has to link on existing telephone and employee id, this makes a new order but
 -- needs order details (an item and quantity)
